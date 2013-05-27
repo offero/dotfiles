@@ -1,0 +1,182 @@
+Xft*dpi:    96
+!Xft*antialias: true
+!Xft*hinting:   true
+!Xft*hintstyle: hintslight
+Xft*rgba:      rgb
+
+urxvt*depth: 32
+
+XTerm*termName: xterm-color
+URxvt.termName: rxvt-unicode-256color
+
+xterm*loginShell: true
+URxvt.loginShell: true
+
+! scrollbar style - rxvt (default), plain (most compact), next, or xterm
+URxvt.scrollstyle: plain
+URxvt*scrollBar_right: true
+
+!see: https://github.com/muennich/urxvt-perls
+URxvt.perl-lib: /home/kirkosc/lib/urxvt/perl
+URxvt.perl-ext-common:  default,matcher,url-select,keyboard-select,clipboard
+!,tabbed
+
+!URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt.keysym.M-S-Escape: perl:keyboard-select:activate
+URxvt.keysym.M-s: perl:keyboard-select:search
+
+URxvt.keysym.M-c: perl:clipboard:copy
+URxvt.keysym.M-v: perl:clipboard:paste
+URxvt.keysym.M-V: perl:clipboard:paste_escaped
+
+!URxvt.clipboard.autocopy: true
+!URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+
+!urxvt*keysym.Control-Up:\033[1;5A
+!urxvt*keysym.Control-Down:\033[1;5B
+!urxvt*keysym.Control-Left:\033[1;5D
+!urxvt*keysym.Control-Right:\033[1;5C
+
+!URxvt.clipboard.copycmd:  xsel -ib
+!URxvt.clipboard.pastecmd: xsel -ob
+!If you prefer xclip, then put these lines in your .Xdefaults/.Xresources:
+!URxvt.clipboard.copycmd:  xclip -i -selection clipboard
+!URxvt.clipboard.pastecmd: xclip -o -selection clipboard
+
+URxvt.scrollTtyKeypress: true
+URxvt.scrollTtyOutput: false
+
+!URxvt.background: black
+!URxvt.foreground: LightGrey
+! shading - 0 to 99 darkens, 101 to 200 lightens.
+!URxvt.shading: 30
+!URxvt.scrollBar: false
+!URxvt.inheritPixmap: true
+!URxvt.tintColor: red
+!URxvt.fading: 10
+URxvt.saveLines: 5000
+URxvt.borderless: false
+URxvt.internalBorder: 4
+URxvt.externalBorder: 4
+URxvt.highlightSelection: true
+!URxvt.xftAntialias: true
+!URxvt.font: xft:Inconsolata-9
+!URxvt.font: xft:Andale\ Mono-10
+!URxvt.font: xft:Anonymous\ Pro\ Minus-11
+URxvt.font: xft:Menlo\ for\ Powerline-9
+!URxvt.font: xft:Monaco-9
+!URxvt.font: xft:Consolas-10
+!URxvt.font: xft:Ubuntu\ Mono-11
+!URxvt.font: xft:Ubuntu\ Mono\ derivative\ Powerline-11
+!URxvt.font: xft:Droid\ Sans\ Mono-9
+!URxvt.font: xft:Envy\ Code\ R-10
+!URxvt*font: xft:terminus:pixelsize=14
+!URxvt*boldFont: xft:terminus:bold:pixelsize=14
+!URxvt*font: xft:PixelCarnageMonoTT-12
+
+!URxvt.font: xft:inconsolata for powerline:pixelsize=14:antialias=true:hinting=true
+!URxvt.boldFont: xft:inconsolata for powerline:bold:pixelsize=14:antialias=true:hinting=true
+!URxvt.italicFont: xft:inconsolata for powerline:italic:pixelsize=14:antialias=true:hinting=true
+!URxvt.boldItalicFont: xft:inconsolata for powerline:bold:italic:pixelsize=14:antialias=true:hinting=true
+
+URxvt.letterSpace: -1
+
+URxvt*colorIT: #ff0000
+
+! Solarized color scheme for the X Window System
+!
+! http://ethanschoonover.com/solarized
+
+
+! Common
+
+#define S_yellow        #b58900
+#define S_orange        #cb4b16
+#define S_red           #dc322f
+#define S_magenta       #d33682
+#define S_violet        #6c71c4
+#define S_blue          #268bd2
+#define S_cyan          #2aa198
+#define S_green         #859900
+
+
+! Dark
+
+#define S_base03        #002b36
+#define S_base02        #073642
+#define S_base01        #586e75
+#define S_base00        #657b83
+!#define S_base0         #839496
+! ####### Chris override: Make the grey text lighter for more contrast
+!#define S_base0         #9DA7A8
+!#define S_base0         #a3acad
+!#define S_base0         #b3b9ba
+!#define S_base0         #c6cccd
+#define S_base0         #dae0e1
+! #######
+#define S_base1         #93a1a1
+#define S_base2         #eee8d5
+#define S_base3         #fdf6e3
+
+
+! Light
+
+! #define S_base03        #fdf6e3
+! #define S_base02        #eee8d5
+! #define S_base01        #93a1a1
+! #define S_base00        #839496
+! #define S_base0         #657b83
+! #define S_base1         #586e75
+! #define S_base2         #073642
+! #define S_base3         #002b36
+
+
+! To only apply colors to your terminal, for example, prefix
+! the color assignment statement with its name. Example:
+!
+! URxvt*background:            S_base03
+
+!*fading:                  40
+URxvt*background:              S_base03
+URxvt*foreground:              S_base0
+URxvt*fadeColor:               S_base03
+!URxvt*cursorColor:             S_base1
+URxvt*cursorColor:             darkorange1
+URxvt*pointerColorBackground:  S_base01
+URxvt*pointerColorForeground:  S_base1
+URxvt*color0:                  S_base02
+URxvt*color1:                  S_red
+URxvt*color2:                  S_green
+URxvt*color3:                  S_yellow
+URxvt*color4:                  S_blue
+URxvt*color5:                  S_magenta
+URxvt*color6:                  S_cyan
+URxvt*color7:                  S_base2
+URxvt*color9:                  S_orange
+URxvt*color8:                  S_base03
+URxvt*color10:                 S_base01
+URxvt*color11:                 S_base00
+URxvt*color12:                 S_base0
+URxvt*color13:                 S_violet
+URxvt*color14:                 S_base1
+URxvt*color15:                 S_base3
+
+
+!!SOLARIZED HEX     16/8 TERMCOL  XTERM/HEX   L*A*B      RGB         HSB
+!!--------- ------- ---- -------  ----------- ---------- ----------- -----------
+!!base03    #002b36  8/4 brblack  234 #1c1c1c 15 -12 -12   0  43  54 193 100  21
+!!base02    #073642  0/4 black    235 #262626 20 -12 -12   7  54  66 192  90  26
+!!base01    #586e75 10/7 brgreen  240 #585858 45 -07 -07  88 110 117 194  25  46
+!!base00    #657b83 11/7 bryellow 241 #626262 50 -07 -07 101 123 131 195  23  51
+!!base0     #839496 12/6 brblue   244 #808080 60 -06 -03 131 148 150 186  13  59
+!!base1     #93a1a1 14/4 brcyan   245 #8a8a8a 65 -05 -02 147 161 161 180   9  63
+!!base2     #eee8d5  7/7 white    254 #e4e4e4 92 -00  10 238 232 213  44  11  93
+!!base3     #fdf6e3 15/7 brwhite  230 #ffffd7 97  00  10 253 246 227  44  10  99
+!!yellow    #b58900  3/3 yellow   136 #af8700 60  10  65 181 137   0  45 100  71
+!!orange    #cb4b16  9/3 brred    166 #d75f00 50  50  55 203  75  22  18  89  80
+!!red       #dc322f  1/1 red      160 #d70000 50  65  45 220  50  47   1  79  86
+!!magenta   #d33682  5/5 magenta  125 #af005f 50  65 -05 211  54 130 331  74  83
+!!violet    #6c71c4 13/5 brmagenta 61 #5f5faf 50  15 -45 108 113 196 237  45  77
+!!blue      #268bd2  4/4 blue      33 #0087ff 55 -10 -45  38 139 210 205  82  82
+!!cyan      #2aa198  6/6 cyan      37 #00afaf 60 -35 -05  42 161 152 175  74  63
+!!green     #859900  2/2 green     64 #5f8700 60 -20  65 133 153   0  68 100  60

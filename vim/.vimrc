@@ -60,7 +60,7 @@ Bundle 'IndexedSearch'
 Bundle 'sherlock.vim'
 
 " Colors color expressions like their actual colors #FF0000
-Bundle 'git://github.com/chrisbra/color_highlight.git'
+Bundle 'chrisbra/color_highlight.git'
 
 " scratch buffer with commands :Scratch and Sscratch
 Bundle 'scratch.vim'
@@ -76,7 +76,7 @@ Bundle 'rodjek/vim-puppet.git'
 " NerdTree
 """""""""""""""""""""""""""""""""""""""""
 Bundle 'scrooloose/nerdtree.git'
-let NERDTreeIgnore = ['\.pyc$']
+let g:NERDTreeIgnore = ['\.pyc$', '\~$', '.DS_Store$']
 "Same nerdtree across all tabs
 "Bundle 'jistr/vim-nerdtree-tabs'
 " NERDTree
@@ -89,12 +89,13 @@ nnoremap <silent> <F3> :NERDTreeFocus<CR>
 
 """""""""""""""""""""""""""""""""""""""""
 " Tabular aligns text
+"""""""""""""""""""""""""""""""""""""""""
 Bundle 'ihacklog/tabular.git'
 """""""""""""""""""""""""""""""""""""""""
 
 "Open file helper
 Bundle 'kien/ctrlp.vim.git'
-
+Bundle 'tpope/vim-fugitive.git'
 Bundle 'The-NERD-Commenter'
 Bundle 'L9'
 
@@ -106,10 +107,11 @@ Bundle 'L9'
 "tab completion helper; use tab key for completion; context-based completion
 " YouCompleteMe requires 7.3.584
 "Bundle 'Valloric/YouCompleteMe'
-"Bundle 'SuperTab'
-"Bundle 'ervandew/supertab.git'
-Bundle "msanders/snipmate.vim"
-Bundle "Rip-Rip/clang_complete"
+Bundle 'ervandew/supertab.git'
+"https://github.com/kien/ctrlp.vim
+"http://kien.github.io/ctrlp.vim/
+Bundle 'msanders/snipmate.vim'
+Bundle 'Rip-Rip/clang_complete'
 """""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""
@@ -117,6 +119,12 @@ Bundle "Rip-Rip/clang_complete"
 """""""""""""""""""""""""""""""""""""""""
 "updated version of python omnicomplete
 Bundle 'pythoncomplete'
+au FileType python set omnifunc=pythoncomplete#Complete
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabNoCompleteAfter = ['^', '\s']
+"let g:SuperTabNoCompleteBefore = [' $']
+"let g:SuperTabMappingForward = '<c-space>'
+"let g:SuperTabMappingBackward = '<s-c-space>'
 "Bundle 'iynaix/django.vim'
 "Bundle 'Python-2.x-Standard-Library-Reference'
 "Bundle 'Python-3.x-Standard-Library-Reference'
@@ -154,18 +162,37 @@ let g:syntastic_python_checker = 'pyflakes'
 let g:syntastic_disabled_filetypes = ['html']
 " 'Signs' are markers in the left most column indicating problem on a line
 "let g:syntastic_enable_signs = 0
+let g:syntastic_enable_signs=1
 " Error balloons on mouse-over
 let g:syntastic_enable_balloons = 0
 "let g:syntastic_enable_highlighting = 0
 " Echoing current line's error
 "let g:syntastic_echo_current_error = 0
+let g:syntastic_auto_loc_list=0 "use the :Errors command to bring up the loc list
 """""""""""""""""""""""""""""""""""""""""
 
 
 """""""""""""""""""""""""""""""""""""""""
 " Buffers and tags
 """""""""""""""""""""""""""""""""""""""""
+" MiniBufExplorer
 Bundle 'fholgado/minibufexpl.vim.git'
+let g:miniBufExplMapWindowNavArrows = 1
+" minibufexpl is really slow with ~ >10 buffers open unless this is set
+let g:miniBufExplCheckDupeBufs = 0
+let g:miniBufExplorerMoreThanOne = 2
+"let g:miniBufExplForceSyntaxEnable = 1
+" The text under the buffer windows in the separator line of minibufexpl
+let g:statusLineText=""
+
+" Go to/open MiniBufExplorer window
+map <leader>e :MiniBufExplorer<CR>
+map <leader>b :MiniBufExplorer<CR>
+" Close MiniBufExplorer window
+map <Leader>c :CMiniBufExplorer<cr>
+" Update MiniBufExplorer window
+map <Leader>u :UMiniBufExplorer<cr>
+
 "Give the :BD command(s) to keep window layout when deleting buffers
 Bundle 'bufkill.vim'
 Bundle 'majutsushi/tagbar'
@@ -264,6 +291,25 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:.
 set iskeyword+=-
 """""""""""""""""""""""""""""""""""""""""
 
+"""""""""""""""""""""""""""""""""""""""""
+" Status Line
+"""""""""""""""""""""""""""""""""""""""""
+if has('statusline')
+    set laststatus=2
+    " Broken down into easily includeable segments
+    "set statusline=%<%f\ " Filename
+    set statusline=%<%t\ " Tail of filename
+    set statusline+=%w%h%m%r " Options
+    set statusline+=%{fugitive#statusline()} " Git Hotness
+    "set statusline+=\ [%{&ff}/%Y] " filetype
+    "set statusline+=\ [%{getcwd()}] " current dir
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+    set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
+endif
+"""""""""""""""""""""""""""""""""""""""""
+
 "Delete trailing white space
 func! DeleteTrailingWS()
   exe "normal mz"
@@ -291,7 +337,6 @@ set omnifunc=syntaxcomplete#Complete
 " automatically open and close the popup menu / preview window
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest,preview
-"let g:SuperTabDefaultCompletionType = "context"
 set pumheight=15 " pop-up menu height
 
 " Enter key will simply select the highlighted menu item, just as <C-Y> does
@@ -329,9 +374,6 @@ highlight PmenuThumb guibg=Black
 """""""""""""""""""""""""""""""""""""""""
 " Color scheme and font configuration
 """""""""""""""""""""""""""""""""""""""""
-" Solarized with Solarized XTerm
-let g:solarized_contrast = "high"
-
 " GVIM specific options
 if has('gui_running')
   set guioptions-=T  " no toolbar
@@ -344,20 +386,23 @@ if has('gui_running')
   set guifont=Monaco\ 9
   " enable color_highlight plugin automatically
   " other I like: zenburn, slate2, 3dglasses, solarized, molokai
-  let g:auto_color=1
+  "let g:auto_color=1
+    colors github
 else
   " Whether solarized is the terminal theme too...
+  let g:solarized_contrast = "high"
   let g:solarized_termtrans = 1
   " Colors in terminal require 256 scheme
   let g:solarized_termcolors=256
+  colors solarized
 endif
 
-set background=dark
-colors solarized
 
 " override Normal foreground and comment colors to something a bit brighter
 hi Normal ctermfg=lightgray guifg=lightgray
 hi Comment ctermfg=darkgrey guifg=darkgrey
+
+set background=light
 
 " for spelling and syntax checking - underline  undercurl
 "highlight SpellBad ctermbg=red guibg=#6d140e guisp=#6d140e
@@ -474,10 +519,14 @@ nmap <C-n> 2zh
 " map ctrl-j to exit insert mode
 "inoremap <C-j> <Esc>
 inoremap JJ <Esc>
+"inoremap ` <Esc>
 "vnoremap <C-j> <Esc>
 " map shift-space to exit insert mode
-"inoremap <S-space> <Esc>
+"inoremap <S-space> <Esc> " I hit this combo after typing symbols (don't use)
 "vnoremap <S-space> <Esc>
+"nnoremap <S-Space> i
+"nnoremap <leader>i i
+"inoremap <leader>i <Esc>
 
 let mapleader = ","
 let g:mapleader = ","
@@ -555,28 +604,12 @@ inoremap "" ""<Left>
 "inoremap [] []<Left>
 "inoremap () ()<Left>
 inoremap #" """<cr>"""<Up>
+inoremap #' '''<cr>'''<Up>
 
 
 " Use Q for formatting the current paragraph (or selection)
 vmap <leader>f gq
 nmap <leader>f gqap
-
-" MiniBufExplorer
-let g:miniBufExplMapWindowNavArrows = 1
-" minibufexpl is really slow with ~ >10 buffers open unless this is set
-let g:miniBufExplCheckDupeBufs = 0
-let g:miniBufExplorerMoreThanOne = 2
-"let g:miniBufExplForceSyntaxEnable = 1
-" The text under the buffer windows in the separator line of minibufexpl
-let g:statusLineText=""
-
-" Go to/open MiniBufExplorer window
-map <leader>e :MiniBufExplorer<CR>
-map <leader>b :MiniBufExplorer<CR>
-" Close MiniBufExplorer window
-map <Leader>c :CMiniBufExplorer<cr>
-" Update MiniBufExplorer window
-map <Leader>u :UMiniBufExplorer<cr>
 
 " quick switch buffers with leader key
 nnoremap <leader>1 :1b<CR>

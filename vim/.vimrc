@@ -387,7 +387,8 @@ if has('gui_running')
   " enable color_highlight plugin automatically
   " other I like: zenburn, slate2, 3dglasses, solarized, molokai
   "let g:auto_color=1
-    colors github
+  set background=light
+  colors github
 else
   " Whether solarized is the terminal theme too...
   let g:solarized_contrast = "high"
@@ -395,14 +396,14 @@ else
   " Colors in terminal require 256 scheme
   let g:solarized_termcolors=256
   colors solarized
+  set background=dark
+
+  " override Normal foreground and comment colors to something a bit brighter
+  hi Normal ctermfg=lightgray guifg=lightgray
+  hi Comment ctermfg=darkgrey guifg=darkgrey
 endif
 
 
-" override Normal foreground and comment colors to something a bit brighter
-hi Normal ctermfg=lightgray guifg=lightgray
-hi Comment ctermfg=darkgrey guifg=darkgrey
-
-set background=light
 
 " for spelling and syntax checking - underline  undercurl
 "highlight SpellBad ctermbg=red guibg=#6d140e guisp=#6d140e

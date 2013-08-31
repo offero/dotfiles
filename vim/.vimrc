@@ -3,8 +3,14 @@
 """""""""""""""""""""""""""""""""""""""""
 set nocompatible     "be iMproved
 filetype off         "required!
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+if has('win32') || has('win64')
+  set rtp+=~/vimfiles/bundle/vundle/
+  call vundle#rc('$HOME/vimfiles/bundle/')
+else
+  " Usual quickstart instructions
+  set rtp+=~/.vim/bundle/vundle/
+  call vundle#rc()
+endif
 " let Vundle manage Vundle : required! 
 Bundle 'gmarik/vundle'
 """""""""""""""""""""""""""""""""""""""""
@@ -12,21 +18,13 @@ Bundle 'gmarik/vundle'
 """""""""""""""""""""""""""""""""""""""""
 " Color schemes
 """""""""""""""""""""""""""""""""""""""""
-Bundle 'Color-Sampler-Pack'
 Bundle 'nanotech/jellybeans.vim.git'
-Bundle 'blackboard.vim'
 Bundle 'Zenburn'
 Bundle 'molokai'
 Bundle 'pf_earth.vim'
 Bundle 'altercation/vim-colors-solarized.git'
 Bundle 'goatslacker/mango.vim.git'
-Bundle 'vibrantink'
-Bundle 'endel/vim-github-colorscheme.git'
-" 256, 88, 16 support
-Bundle 'tpope/vim-vividchalk.git'
-" 256 scheme
 Bundle 'Lokaltog/vim-distinguished.git'
-Bundle 'zeis/vim-kolor.git'
 " Defines commands :CP and :CN that change (next, prev) colorschemes
 " Also defines :SCROLLCOLORS to provide a list of colorscheme choices
 Bundle 'ScrollColors'
@@ -156,7 +154,7 @@ au BufNewFile,BufRead *.mako set ft=mako
 """""""""""""""""""""""""""""""""""""""""
 Bundle 'scrooloose/syntastic.git'
 " Syntastic checkers
-let g:syntastic_python_checker = 'pyflakes'
+"let g:syntastic_python_checker = 'pyflakes' # deprication warning
 "let g:syntastic_python_checker = 'pylint'
 "let g:syntastic_disabled_filetypes = ['html', 'python', 'py']
 let g:syntastic_disabled_filetypes = ['html']
@@ -280,6 +278,7 @@ set colorcolumn=81 " colorcolumn textwidth+1
 "set foldmethod=syntax
 set foldlevelstart=20
 set foldnestmax=3  " max nested level to fold
+set backspace=indent,eol,start
 "set ignorecase
 "set smartcase     " ignore case if search pattern is all lowercase,
                   "    case-sensitive otherwise
@@ -383,7 +382,12 @@ if has('gui_running')
   "set guifont=Droid\ Sans\ Mono\ 10
   "set guifont=Anonymous\ Pro\ Minus\ 11
   "set guifont=Envy\ Code\ R\ 10
-  set guifont=Monaco\ 9
+  if has('win32') || has('win64')
+    set guifont=Consolas:h10
+    set guifontwide=MingLiU:h10
+  else
+    set guifont=Monaco\ 9
+  endif
   " enable color_highlight plugin automatically
   " other I like: zenburn, slate2, 3dglasses, solarized, molokai
   "let g:auto_color=1
@@ -391,19 +395,17 @@ if has('gui_running')
   colors github
 else
   " Whether solarized is the terminal theme too...
-  let g:solarized_contrast = "high"
   let g:solarized_termtrans = 1
   " Colors in terminal require 256 scheme
   let g:solarized_termcolors=256
-  colors solarized
-  set background=dark
-
-  " override Normal foreground and comment colors to something a bit brighter
-  hi Normal ctermfg=lightgray guifg=lightgray
-  hi Comment ctermfg=darkgrey guifg=darkgrey
 endif
 
+set background=dark
+colors solarized
 
+" override Normal foreground and comment colors to something a bit brighter
+hi Normal ctermfg=lightgray guifg=lightgray
+hi Comment ctermfg=darkgrey guifg=darkgrey
 
 " for spelling and syntax checking - underline  undercurl
 "highlight SpellBad ctermbg=red guibg=#6d140e guisp=#6d140e
@@ -520,7 +522,6 @@ nmap <C-n> 2zh
 " map ctrl-j to exit insert mode
 "inoremap <C-j> <Esc>
 inoremap JJ <Esc>
-"inoremap ` <Esc>
 "vnoremap <C-j> <Esc>
 " map shift-space to exit insert mode
 "inoremap <S-space> <Esc> " I hit this combo after typing symbols (don't use)

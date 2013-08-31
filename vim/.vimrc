@@ -1,33 +1,43 @@
 """""""""""""""""""""""""""""""""""""""""
-" Vundle Setup
+" NeoBundle/Vundle Setup
 """""""""""""""""""""""""""""""""""""""""
 set nocompatible     "be iMproved
-filetype off         "required!
+filetype off         "required! (Vundle Only)
 if has('win32') || has('win64')
-  set rtp+=~/vimfiles/bundle/vundle/
-  call vundle#rc('$HOME/vimfiles/bundle/')
+  let $VIMHOME = "~/vimfiles"
+  set rtp+=~/vimfiles/bundle/neobundle.vim/
+  call neobundle#rc(expand('~/vimfiles/bundle/'))
+  "set rtp+=~/vimfiles/bundle/vundle/
+  "call vundle#rc('$HOME/vimfiles/bundle/')
 else
-  " Usual quickstart instructions
-  set rtp+=~/.vim/bundle/vundle/
-  call vundle#rc()
+  let $VIMHOME="~/.vim"
+  set rtp+=~/.vim/bundle/neobundle.vim/
+  call neobundle#rc(expand('~/.vim/bundle/'))
+  "set rtp+=~/.vim/bundle/vundle/
+  "call vundle#rc()
 endif
+
+
 " let Vundle manage Vundle : required! 
-Bundle 'gmarik/vundle'
+" Bundle 'gmarik/vundle'
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
 """""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""
 " Color schemes
 """""""""""""""""""""""""""""""""""""""""
-Bundle 'nanotech/jellybeans.vim.git'
-Bundle 'Zenburn'
-Bundle 'molokai'
-Bundle 'pf_earth.vim'
-Bundle 'altercation/vim-colors-solarized.git'
-Bundle 'goatslacker/mango.vim.git'
-Bundle 'Lokaltog/vim-distinguished.git'
+NeoBundle 'nanotech/jellybeans.vim.git'
+NeoBundle 'Zenburn'
+NeoBundle 'molokai'
+NeoBundle 'pf_earth.vim'
+NeoBundle 'altercation/vim-colors-solarized.git'
+NeoBundle 'goatslacker/mango.vim.git'
+NeoBundle 'nielsmadan/harlequin'
 " Defines commands :CP and :CN that change (next, prev) colorschemes
 " Also defines :SCROLLCOLORS to provide a list of colorscheme choices
-Bundle 'ScrollColors'
+NeoBundle 'ScrollColors'
 " \p is set in ScrollColors, it interfere's with clojure plugin
 "autocmd FileType clojure unmap \p
 "gvim colorscheme adapter for vim in 256 terminal mode
@@ -36,7 +46,7 @@ Bundle 'ScrollColors'
 """""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""
-Bundle 'kien/rainbow_parentheses.vim'
+NeoBundle 'kien/rainbow_parentheses.vim'
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
@@ -48,32 +58,32 @@ au Syntax * RainbowParenthesesLoadBraces
 """""""""""""""""""""""""""""""""""""""""
 " nRepl for clojure built in
 "Bundle 'tpope/vim-fireplace.git'
-Bundle 'tpope/vim-classpath.git'
-Bundle 'guns/vim-clojure-static'
+NeoBundle 'tpope/vim-classpath.git'
+NeoBundle 'guns/vim-clojure-static'
 "let vimclojure#UseErrorBuffer = 0
 """""""""""""""""""""""""""""""""""""""""
 
 " Displays Match M out of N" when searching (smart with large files)
-Bundle 'IndexedSearch'
-Bundle 'sherlock.vim'
+NeoBundle 'IndexedSearch'
+NeoBundle 'sherlock.vim'
 
 " Colors color expressions like their actual colors #FF0000
-Bundle 'chrisbra/color_highlight.git'
+NeoBundle 'chrisbra/color_highlight.git'
 
 " scratch buffer with commands :Scratch and Sscratch
-Bundle 'scratch.vim'
+NeoBundle 'scratch.vim'
 
 """""""""""""""""""""""""""""""""""""""""
 " Misc language support
 """""""""""""""""""""""""""""""""""""""""
-Bundle 'octave.vim'
-Bundle 'rodjek/vim-puppet.git'
+NeoBundle 'octave.vim'
+NeoBundle 'rodjek/vim-puppet.git'
 """""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""
 " NerdTree
 """""""""""""""""""""""""""""""""""""""""
-Bundle 'scrooloose/nerdtree.git'
+NeoBundle 'scrooloose/nerdtree.git'
 let g:NERDTreeIgnore = ['\.pyc$', '\~$', '.DS_Store$']
 "Same nerdtree across all tabs
 "Bundle 'jistr/vim-nerdtree-tabs'
@@ -88,14 +98,15 @@ nnoremap <silent> <F3> :NERDTreeFocus<CR>
 """""""""""""""""""""""""""""""""""""""""
 " Tabular aligns text
 """""""""""""""""""""""""""""""""""""""""
-Bundle 'ihacklog/tabular.git'
+NeoBundle 'ihacklog/tabular.git'
 """""""""""""""""""""""""""""""""""""""""
 
 "Open file helper
-Bundle 'kien/ctrlp.vim.git'
-Bundle 'tpope/vim-fugitive.git'
-Bundle 'The-NERD-Commenter'
-Bundle 'L9'
+NeoBundle 'kien/ctrlp.vim.git'
+NeoBundle 'tpope/vim-fugitive.git'
+NeoBundle 'The-NERD-Commenter'
+NeoBundle 'L9'
+NeoBundle 'ervandew/supertab.git'
 
 """""""""""""""""""""""""""""""""""""""""
 " TODO: Test/install these
@@ -105,24 +116,32 @@ Bundle 'L9'
 "tab completion helper; use tab key for completion; context-based completion
 " YouCompleteMe requires 7.3.584
 "Bundle 'Valloric/YouCompleteMe'
-Bundle 'ervandew/supertab.git'
 "https://github.com/kien/ctrlp.vim
 "http://kien.github.io/ctrlp.vim/
-Bundle 'msanders/snipmate.vim'
-Bundle 'Rip-Rip/clang_complete'
+NeoBundle 'Rip-Rip/clang_complete'
+"Bundle 'vim-scripts/YankRing.vim'
+"Bundle rstacruz/sparkup.git  "Fast HTML coding
+"Bundle Shougo/neocomplcache.vim.git " autocompletion
+"Bundle Shougo/neocomplete.vim.git " the successor to neocomplcache
+"Bundle Lokaltog/vim-easymotion.git
+"Bundle kshenoy/vim-signature.git
+"Bundle terryma/vim-multiple-cursors.git
+"Bundle mattn/emmet-vim.git " HTML5 and CSS coding
+"Bundle Rykka/colorv.vim.git
+"DirDiff.vim
+"Bundle othree/html5.vim.git
+"Bundle Yggdroot/indentLine.git
+"Bundle SirVer/ultisnips.git
+"Bundle bling/vim-airline.git
+"Bundle airblade/vim-gitgutter
+"Bundle jimsei/winresizer.git
 """""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""
 " Python
 """""""""""""""""""""""""""""""""""""""""
 "updated version of python omnicomplete
-Bundle 'pythoncomplete'
-au FileType python set omnifunc=pythoncomplete#Complete
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabNoCompleteAfter = ['^', '\s']
-"let g:SuperTabNoCompleteBefore = [' $']
-"let g:SuperTabMappingForward = '<c-space>'
-"let g:SuperTabMappingBackward = '<s-c-space>'
+"Bundle 'pythoncomplete'
 "Bundle 'iynaix/django.vim'
 "Bundle 'Python-2.x-Standard-Library-Reference'
 "Bundle 'Python-3.x-Standard-Library-Reference'
@@ -132,8 +151,22 @@ let g:SuperTabNoCompleteAfter = ['^', '\s']
 "More up to date pydoc integration
 "Bundle 'git://github.com/fs111/pydoc.vim.git'
 
+NeoBundle 'davidhalter/jedi-vim.git'
+let g:jedi#popup_on_dot = 0
+let g:jedi#popup_select_first = 0
+let g:jedi#use_tabs_not_buffers = 0
+" if these are set to "" then these are unassigned
+let g:jedi#auto_initialization = 1
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_definitions_command = "<leader>d"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"
+let g:jedi#show_call_signatures = "1"
+
 " highlighting indentation
-Bundle 'nathanaelkane/vim-indent-guides.git'
+NeoBundle 'nathanaelkane/vim-indent-guides.git'
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 "let g:indent_guides_auto_colors = 0
@@ -152,7 +185,7 @@ au BufNewFile,BufRead *.mako set ft=mako
 """""""""""""""""""""""""""""""""""""""""
 "Syntastic performs syntax checking
 """""""""""""""""""""""""""""""""""""""""
-Bundle 'scrooloose/syntastic.git'
+NeoBundle 'scrooloose/syntastic.git'
 " Syntastic checkers
 "let g:syntastic_python_checker = 'pyflakes' # deprication warning
 "let g:syntastic_python_checker = 'pylint'
@@ -174,7 +207,7 @@ let g:syntastic_auto_loc_list=0 "use the :Errors command to bring up the loc lis
 " Buffers and tags
 """""""""""""""""""""""""""""""""""""""""
 " MiniBufExplorer
-Bundle 'fholgado/minibufexpl.vim.git'
+NeoBundle 'fholgado/minibufexpl.vim.git'
 let g:miniBufExplMapWindowNavArrows = 1
 " minibufexpl is really slow with ~ >10 buffers open unless this is set
 let g:miniBufExplCheckDupeBufs = 0
@@ -192,8 +225,8 @@ map <Leader>c :CMiniBufExplorer<cr>
 map <Leader>u :UMiniBufExplorer<cr>
 
 "Give the :BD command(s) to keep window layout when deleting buffers
-Bundle 'bufkill.vim'
-Bundle 'majutsushi/tagbar'
+NeoBundle 'bufkill.vim'
+NeoBundle 'majutsushi/tagbar'
 nnoremap <silent> <F8> :TagbarToggle<CR>
 " ##########  The j argument here _v_ is required to focus the cursor
 nnoremap <silent> <F7> :TagbarOpen j<CR>
@@ -212,28 +245,27 @@ set tags+=~/.vim/tags/libc6
 """""""""""""""""""""""""""""""""""""""""
 
 " repeat.vim allows other plugins to use the dot repeat command
-Bundle 'tpope/vim-repeat.git'
-Bundle 'tpope/vim-surround.git'
+NeoBundle 'tpope/vim-repeat.git'
+NeoBundle 'tpope/vim-surround.git'
 
 " Repeat numbered motion commands with ; and , keys
-Bundle  'repmo.vim'
+NeoBundle  'repmo.vim'
 " use \ instead of , (leader re-mapped to ,)
 "let repmo_revkey = 'r'
 
 """""""""""""""""""""""""""""""""""""""""
-" Post Vundle
+" Post NeoBundle/Vundle
 """""""""""""""""""""""""""""""""""""""""
 filetype plugin indent on     " required!
 """""""""""""""""""""""""""""""""""""""""
+
+NeoBundleCheck
 
 """""""""""""""""""""""""""""""""""""""""
 " Standard VIM options
 """""""""""""""""""""""""""""""""""""""""
 set t_Co=256
 set nu               "line numbers
-filetype on
-filetype plugin on
-filetype indent on
 syntax enable
 set history=500 "lines of history
 set hlsearch
@@ -288,6 +320,9 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:.
 " Add the '-' to the list of characters that are considered part of a keyword.
 " IE. Word actions will include hyphenated words.
 set iskeyword+=-
+"if has('win32') || has('win64')
+    "set shellslash
+"endif
 """""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""
@@ -326,12 +361,27 @@ imap <C-@> <C-Space>
 
 " Omnicomplete
 set omnifunc=syntaxcomplete#Complete
-
-" Python Complete
+" Expand to the longest match to save characters
+" Set tab completion to key off of ctrl-space and expand tab characters
+set completeopt=longest
+let g:SuperTabLongestEnhanced = 1
+let g:SuperTabNoCompleteAfter = ['^', '\s']
+", ',', '(', ')', '{', '}', '"']
+"let g:SuperTabNoCompleteBefore = [' $']
+let g:SuperTabDefaultCompletionType = "context"
+"let g:SuperTabContextDefaultCompletionType = "<c-n>" " fallback from "context"
+let g:SuperTabMappingForward = '<c-space>' " default is <tab>
+let g:SuperTabMappingBackward = '<s-c-space>' " default is <s-tab>
+let g:SuperTabMappingTabLiteral = '<Tab>' " default is <c-tab>
+let g:SuperTabRetainCompletionDuration = "session"
+" jedi#completions
 "autocmd FileType python set omnifunc=pythoncomplete#Complete
-"autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-"autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
 
 " automatically open and close the popup menu / preview window
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
@@ -378,34 +428,32 @@ if has('gui_running')
   set guioptions-=T  " no toolbar
   set guioptions-=m  " no menubar
   set guitablabel=%t " only filename in tab label
-  "set guifont=Ubuntu\ Mono\ 11
-  "set guifont=Droid\ Sans\ Mono\ 10
-  "set guifont=Anonymous\ Pro\ Minus\ 11
-  "set guifont=Envy\ Code\ R\ 10
   if has('win32') || has('win64')
     set guifont=Consolas:h10
     set guifontwide=MingLiU:h10
   else
     set guifont=Monaco\ 9
+    "set guifont=Ubuntu\ Mono\ 11
+    "set guifont=Droid\ Sans\ Mono\ 10
+    "set guifont=Anonymous\ Pro\ Minus\ 11
+    "set guifont=Envy\ Code\ R\ 10
   endif
   " enable color_highlight plugin automatically
   " other I like: zenburn, slate2, 3dglasses, solarized, molokai
   "let g:auto_color=1
-  set background=light
-  colors github
+  set background=dark
+  colors harlequin
 else
   " Whether solarized is the terminal theme too...
   let g:solarized_termtrans = 1
   " Colors in terminal require 256 scheme
   let g:solarized_termcolors=256
+  set background=dark
+  colors solarized
+  " override Normal foreground and comment colors to something a bit brighter
+  hi Normal ctermfg=lightgray guifg=lightgray
+  hi Comment ctermfg=darkgrey guifg=darkgrey
 endif
-
-set background=dark
-colors solarized
-
-" override Normal foreground and comment colors to something a bit brighter
-hi Normal ctermfg=lightgray guifg=lightgray
-hi Comment ctermfg=darkgrey guifg=darkgrey
 
 " for spelling and syntax checking - underline  undercurl
 "highlight SpellBad ctermbg=red guibg=#6d140e guisp=#6d140e
@@ -443,14 +491,10 @@ endfunction
 
 map <F5> :call AutoHighlightToggle()<CR>
 
-" A Vim function i use to easily toggle colorcolumn on and off.
-
+" A Vim function I use to easily toggle colorcolumn on and off.
 " If colorcolumn is off and textwidth is set the use colorcolumn=+1.
 " If colorcolumn is off and textwidth is not set then use colorcolumn=80.
 " If colorcolumn is on then turn it off.
-
-" I use: nmap <Leader>cc :call ColorColumn()<CR>
-
 function! ColorColumn()
   if empty(&colorcolumn)
     if empty(&textwidth)
@@ -488,10 +532,12 @@ map <silent> <A-h> <C-w><
 map <silent> <A-j> <C-W>-
 map <silent> <A-k> <C-W>+
 map <silent> <A-l> <C-w>>
-"nmap <silent> <C-H> <C-w><
-"nmap <silent> <C-L> <C-w>>
 noremap <Right> <C-w>>
 noremap <Left> <C-w><
+
+" Horizontal scrolling
+noremap <C-]> zl
+noremap <C-[> zh
 
 " Maps Alt-[s.v] to horizontal and vertical split respectively
 map <silent> <A-s> :split<CR>
@@ -506,9 +552,6 @@ map <leader>te :tabedit
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 
-" make the ; char behave like : and vice versa
-"nnoremap ; :
-"nnoremap : ;
 " make j and k act by terminal line when dealing with wrapped text
 nnoremap j gj
 nnoremap k gk
@@ -520,7 +563,8 @@ nmap <C-n> 2zh
 " use ii as an escape
 "imap ii <C-[>
 " map ctrl-j to exit insert mode
-"inoremap <C-j> <Esc>
+
+imap ,, <Esc>
 inoremap JJ <Esc>
 "vnoremap <C-j> <Esc>
 " map shift-space to exit insert mode
@@ -530,6 +574,8 @@ inoremap JJ <Esc>
 "nnoremap <leader>i i
 "inoremap <leader>i <Esc>
 
+" enable reverse find (f, t) movement key
+nnoremap <Space>, ,
 let mapleader = ","
 let g:mapleader = ","
 
@@ -598,8 +644,6 @@ nnoremap <C-CR> o
 
 nnoremap <leader>q :q<cr>
 
-inoremap '' ''<Left>
-inoremap "" ""<Left>
 "inoremap () ()<Left>
 "inoremap <> <><Left>
 "inoremap {} {}<Left>

@@ -141,7 +141,6 @@ NeoBundle 'Rip-Rip/clang_complete'
 " Python
 """""""""""""""""""""""""""""""""""""""""
 "updated version of python omnicomplete
-"Bundle 'pythoncomplete'
 "Bundle 'iynaix/django.vim'
 "Bundle 'Python-2.x-Standard-Library-Reference'
 "Bundle 'Python-3.x-Standard-Library-Reference'
@@ -150,7 +149,7 @@ NeoBundle 'Rip-Rip/clang_complete'
 "Bundle 'git://github.com/jbking/vim-pep8.git'
 "More up to date pydoc integration
 "Bundle 'git://github.com/fs111/pydoc.vim.git'
-
+NeoBundle 'jmcantrell/vim-virtualenv.git'
 NeoBundle 'davidhalter/jedi-vim.git'
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
@@ -325,25 +324,6 @@ set iskeyword+=-
 "endif
 """""""""""""""""""""""""""""""""""""""""
 
-"""""""""""""""""""""""""""""""""""""""""
-" Status Line
-"""""""""""""""""""""""""""""""""""""""""
-if has('statusline')
-    set laststatus=2
-    " Broken down into easily includeable segments
-    "set statusline=%<%f\ " Filename
-    set statusline=%<%t\ " Tail of filename
-    set statusline+=%w%h%m%r " Options
-    set statusline+=%{fugitive#statusline()} " Git Hotness
-    "set statusline+=\ [%{&ff}/%Y] " filetype
-    "set statusline+=\ [%{getcwd()}] " current dir
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-    set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
-endif
-"""""""""""""""""""""""""""""""""""""""""
-
 "Delete trailing white space
 func! DeleteTrailingWS()
   exe "normal mz"
@@ -465,6 +445,47 @@ endif
 "let g:molokai_original=1
 "let g:solarized_visibility = "high"
 """""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""
+" Status Line
+"""""""""""""""""""""""""""""""""""""""""
+if has('statusline')
+    set laststatus=2
+    set statusline=
+
+    set statusline +=%1*b%n\ %*            "buffer number
+    set statusline +=%4*%.30F%* " Print at most 30 chars of the path to file
+    set statusline +=%5*\ %{fugitive#statusline()}%*
+    set statusline +=%3*\ (%{virtualenv#statusline()})%*
+    set statusline +=%2*%{SyntasticStatuslineFlag()}%*
+    set statusline +=%2*%m%r%*              "modified,readonly flag
+    set statusline +=%2*%#warningmsg#%*
+    set statusline +=%1*%=%5l%*             "current line
+    set statusline +=%2*/%L%*               "total lines
+    set statusline +=%1*%4v\ %*             "virtual column number
+    set statusline +=%2*0x%04B\ %*          "character under cursor
+
+    "set statusline +=%5*%{&ff}%*            "file format
+    "set statusline +=%3*%y%*                "file type
+    "set statusline +=%4*\ %<%F%*            "full path
+    "set statusline=%<%f\ " Filename
+    "set statusline=%<%t\ " Tail of filename
+    "set statusline+=\ [%{getcwd()}] " current dir
+    "set statusline+=%2*b%-3.3n%* " buffer number
+    "set statusline+=%w%h%m%r " Options
+    "set statusline+=\ [%{&ff}/%Y] " filetype
+    "set statusline+=%*
+    "set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
+    "set statusline+=\ ""
+    "set statusline+=%=last\ mod:\ ""
+    "set statusline+=%{strftime(\"%m/%d/%y\ %T\",getftime(expand(\"%:p\")))}
+endif
+"""""""""""""""""""""""""""""""""""""""""
+hi User1 guifg=#eea040 guibg=#222222
+hi User2 guifg=#dd3333 guibg=#222222
+hi User3 guifg=#ff66ff guibg=#222222
+hi User4 guifg=#a0ee40 guibg=#222222
+hi User5 guifg=#eeee40 guibg=#222222
 
 " From: http://vim.wikia.com/wiki/VimTip572
 " Highlight all instances of word under cursor, when idle.

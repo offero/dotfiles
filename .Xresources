@@ -17,7 +17,7 @@ URxvt.scrollstyle: plain
 URxvt*scrollBar_right: true
 
 !see: https://github.com/muennich/urxvt-perls
-URxvt.perl-lib: /home/kirkosc/lib/urxvt/perl
+URxvt.perl-lib: ~/local/lib/urxvt/perl
 URxvt.perl-ext-common:  default,matcher,url-select,keyboard-select,clipboard
 !,tabbed
 
@@ -63,6 +63,7 @@ URxvt.highlightSelection: true
 !URxvt.font: xft:Inconsolata-9
 !URxvt.font: xft:Andale\ Mono-10
 !URxvt.font: xft:Anonymous\ Pro\ Minus-11
+!URxvt*font: xft:Monaco for Powerline:regular:size=8
 URxvt.font: xft:Menlo\ for\ Powerline-9
 !URxvt.font: xft:Monaco-9
 !URxvt.font: xft:Consolas-10

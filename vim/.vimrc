@@ -589,8 +589,9 @@ nmap <C-n> 2zh
 "imap ii <C-[>
 " map ctrl-j to exit insert mode
 
-imap ,, <Esc>
+inoremap ,, <Esc>
 inoremap JJ <Esc>
+vnoremap JJ <Esc>
 "vnoremap <C-j> <Esc>
 " map shift-space to exit insert mode
 "inoremap <S-space> <Esc> " I hit this combo after typing symbols (don't use)

@@ -130,7 +130,7 @@ NeoBundle 'Rip-Rip/clang_complete'
 "Bundle Rykka/colorv.vim.git
 "DirDiff.vim
 "Bundle othree/html5.vim.git
-"Bundle Yggdroot/indentLine.git
+NeoBundle 'Yggdroot/indentLine.git'
 "Bundle SirVer/ultisnips.git
 "Bundle bling/vim-airline.git
 "Bundle airblade/vim-gitgutter
@@ -165,9 +165,9 @@ let g:jedi#rename_command = "<leader>r"
 let g:jedi#show_call_signatures = "1"
 
 " highlighting indentation
-NeoBundle 'nathanaelkane/vim-indent-guides.git'
-let g:indent_guides_start_level=2
-let g:indent_guides_guide_size=1
+"NeoBundle 'nathanaelkane/vim-indent-guides.git'
+"let g:indent_guides_start_level=2
+"let g:indent_guides_guide_size=1
 "let g:indent_guides_auto_colors = 0
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey ctermbg=3
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=lightgrey ctermbg=4
@@ -186,8 +186,6 @@ au BufNewFile,BufRead *.mako set ft=mako
 """""""""""""""""""""""""""""""""""""""""
 NeoBundle 'scrooloose/syntastic.git'
 " Syntastic checkers
-"let g:syntastic_python_checker = 'pyflakes' # deprication warning
-"let g:syntastic_python_checker = 'pylint'
 "let g:syntastic_disabled_filetypes = ['html', 'python', 'py']
 let g:syntastic_disabled_filetypes = ['html']
 " 'Signs' are markers in the left most column indicating problem on a line
@@ -199,8 +197,14 @@ let g:syntastic_enable_balloons = 0
 " Echoing current line's error
 "let g:syntastic_echo_current_error = 0
 let g:syntastic_auto_loc_list=0 "use the :Errors command to bring up the loc list
+"let g:syntastic_python_pylama_args = '-l pep8,pep257,mccabe,pyflakes,pylint'
+let g:syntastic_check_on_open = 1
+let g:syntastic_python_checkers=['flake8']
+"let g:syntastic_python_flake8_args='--ignore=E126,E127,E127,E225'
+let g:syntastic_python_flake8_post_args='--ignore=E126,E127,E128,E203,E221,
+                                        \E222,E225,E226,E241,E271,E272'
+let g:syntastic_debug = 0
 """""""""""""""""""""""""""""""""""""""""
-
 
 """""""""""""""""""""""""""""""""""""""""
 " Buffers and tags
@@ -336,20 +340,21 @@ autocmd BufWrite *.py :call DeleteTrailingWS()
 set wildchar=<Tab> wildmenu wildmode=longest,list,full
 set wildignore+=*.o,*.obj,.git,*.pyc,*.py~
 " Map ctrl+space combination to set off the auto-complete menu
-imap <C-Space> <C-x><C-o>
-imap <C-@> <C-Space>
+"imap <C-Space> <C-x><C-o>
+"imap <C-@> <C-Space>
 
 " Omnicomplete
-set omnifunc=syntaxcomplete#Complete
+"set omnifunc=syntaxcomplete#Complete
+set completeopt=menuone,menu,longest,preview
 " Expand to the longest match to save characters
 " Set tab completion to key off of ctrl-space and expand tab characters
-set completeopt=longest
 let g:SuperTabLongestEnhanced = 1
 let g:SuperTabNoCompleteAfter = ['^', '\s']
 ", ',', '(', ')', '{', '}', '"']
 "let g:SuperTabNoCompleteBefore = [' $']
 let g:SuperTabDefaultCompletionType = "context"
-"let g:SuperTabContextDefaultCompletionType = "<c-n>" " fallback from "context"
+" fallback from "context"
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
 let g:SuperTabMappingForward = '<c-space>' " default is <tab>
 let g:SuperTabMappingBackward = '<s-c-space>' " default is <s-tab>
 let g:SuperTabMappingTabLiteral = '<Tab>' " default is <c-tab>
@@ -364,12 +369,11 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 
 " automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-set completeopt=menuone,menu,longest,preview
-set pumheight=15 " pop-up menu height
+"au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+"set pumheight=15 " pop-up menu height
 
 " Enter key will simply select the highlighted menu item, just as <C-Y> does
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " This only works for windows:
 "nmap <F12> :let &guifont = substitute(&guifont, ':h\(\d\+\)', '\=":h" . (submatch(1) - 1)', '')<CR>

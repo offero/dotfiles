@@ -1,0 +1,9 @@
+; Make sure you move this to ~/.gitconfig for global settings
+
+[alias]
+; make local modifications to a file not effect repository state,
+; ditto for remote modifications
+; useage: git untrack path/to/file.ext
+track = update-index --no-assume-unchanged
+untrack = update-index --assume-unchanged
+ls-untrack = ls-files -v | grep "^[[:lower:]]"

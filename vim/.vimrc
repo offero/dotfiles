@@ -63,15 +63,19 @@ NeoBundle 'guns/vim-clojure-static'
 "let vimclojure#UseErrorBuffer = 0
 """""""""""""""""""""""""""""""""""""""""
 
-" Displays Match M out of N" when searching (smart with large files)
+" IndexedSearch Displays Match M out of N" when searching
+" (smart with large files)
 NeoBundle 'IndexedSearch'
+
+" sherlock performs completion from current buffer for command line line mode
+" by using ctrl-tab and ctrl-shift-tab
 NeoBundle 'sherlock.vim'
 
 " Colors color expressions like their actual colors #FF0000
 NeoBundle 'chrisbra/color_highlight.git'
 
 " scratch buffer with commands :Scratch and Sscratch
-NeoBundle 'scratch.vim'
+"NeoBundle 'scratch.vim'
 
 """""""""""""""""""""""""""""""""""""""""
 " Misc language support
@@ -87,12 +91,15 @@ NeoBundle 'scrooloose/nerdtree.git'
 let g:NERDTreeIgnore = ['\.pyc$', '\~$', '.DS_Store$']
 "Same nerdtree across all tabs
 "Bundle 'jistr/vim-nerdtree-tabs'
-" NERDTree
 "let g:NERDTreeWinPos = "right"
 nnoremap <silent> <F2> :NERDTreeToggle<CR>
 nnoremap <silent> <F3> :NERDTreeFocus<CR>
+" Stop underlines from showing up on files in NerdTree
+"autocmd Syntax nerdtree hi Title gui=None
+autocmd FileType nerdtree hi Title gui=None
 " Open NERDTree automatically when vim starts up if no files were specified
 "autocmd vimenter * if !argc() | NERDTree | endif
+set splitright
 """""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""
@@ -101,8 +108,10 @@ nnoremap <silent> <F3> :NERDTreeFocus<CR>
 NeoBundle 'ihacklog/tabular.git'
 """""""""""""""""""""""""""""""""""""""""
 
-"Open file helper
+"Fuzzy open file helper with ctrl-p
 NeoBundle 'kien/ctrlp.vim.git'
+let g:ctrlp_working_path_mode='ra'
+
 NeoBundle 'tpope/vim-fugitive.git'
 NeoBundle 'The-NERD-Commenter'
 NeoBundle 'L9'
@@ -162,7 +171,12 @@ let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>n"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
-let g:jedi#show_call_signatures = "1"
+let g:jedi#show_call_signatures = "0"
+" Make the preview window show up on the bottom and not the top so the text
+" does not scroll down.
+"set splitbelow
+" To disable preview window:
+"autocmd FileType python setlocal completeopt-=preview
 
 " highlighting indentation
 "NeoBundle 'nathanaelkane/vim-indent-guides.git'
@@ -171,6 +185,9 @@ let g:jedi#show_call_signatures = "1"
 "let g:indent_guides_auto_colors = 0
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey ctermbg=3
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=lightgrey ctermbg=4
+
+" pseudo-select all
+"nnoremap <C-a> GVgg
 
 " Recognize .wsgi files as python
 autocmd BufRead,BufNewFile *.wsgi set filetype=python
@@ -192,40 +209,57 @@ let g:syntastic_disabled_filetypes = ['html']
 "let g:syntastic_enable_signs = 0
 let g:syntastic_enable_signs=1
 " Error balloons on mouse-over
-let g:syntastic_enable_balloons = 0
+let g:syntastic_enable_balloons=0
 "let g:syntastic_enable_highlighting = 0
 " Echoing current line's error
 "let g:syntastic_echo_current_error = 0
 let g:syntastic_auto_loc_list=0 "use the :Errors command to bring up the loc list
 "let g:syntastic_python_pylama_args = '-l pep8,pep257,mccabe,pyflakes,pylint'
-let g:syntastic_check_on_open = 1
-let g:syntastic_python_checkers=['flake8']
+let g:syntastic_check_on_open=1
+"let g:syntastic_python_checkers=['flake8']
+let g:syntastic_python_checkers=['pyflakes']
 "let g:syntastic_python_flake8_args='--ignore=E126,E127,E127,E225'
 let g:syntastic_python_flake8_post_args='--ignore=E126,E127,E128,E203,E221,
                                         \E222,E225,E226,E241,E271,E272'
-let g:syntastic_debug = 0
+let g:syntastic_python_pyflakes_post_args='--ignore=E126,E127,E128,E203,E221,
+                                        \E222,E225,E226,E241,E271,E272'
+let g:syntastic_debug=0
 """""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""
 " Buffers and tags
 """""""""""""""""""""""""""""""""""""""""
 " MiniBufExplorer
-NeoBundle 'fholgado/minibufexpl.vim.git'
-let g:miniBufExplMapWindowNavArrows = 1
+"NeoBundle 'fholgado/minibufexpl.vim.git'
+"let g:miniBufExplMapWindowNavArrows = 1
 " minibufexpl is really slow with ~ >10 buffers open unless this is set
-let g:miniBufExplCheckDupeBufs = 0
-let g:miniBufExplorerMoreThanOne = 2
+"let g:miniBufExplCheckDupeBufs = 0
+"let g:miniBufExplorerMoreThanOne = 2
 "let g:miniBufExplForceSyntaxEnable = 1
 " The text under the buffer windows in the separator line of minibufexpl
-let g:statusLineText=""
+"let g:statusLineText=""
 
 " Go to/open MiniBufExplorer window
-map <leader>e :MiniBufExplorer<CR>
-map <leader>b :MiniBufExplorer<CR>
+"map <leader>e :MiniBufExplorer<CR>
+"map <leader>b :MiniBufExplorer<CR>
 " Close MiniBufExplorer window
-map <Leader>c :CMiniBufExplorer<cr>
+"map <Leader>c :CMiniBufExplorer<cr>
 " Update MiniBufExplorer window
-map <Leader>u :UMiniBufExplorer<cr>
+"map <Leader>u :UMiniBufExplorer<cr>
+
+NeoBundle 'JessicaKMcIntosh/TagmaBufMgr.git'
+" don't map Ctrl+arrows to move around splits/buffers (default 1)
+let g:TagmaBufMgrMapCArrow = 0
+" map Ctrl+h,j,k,l to move around splits/buffers (default 1)
+let g:TagmaBufMgrMapChjkl = 1
+let g:TagmaBufMgrStatusLine  = '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+let g:TagmaBufMgrStatusLine .= '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+let g:TagmaBufMgrStatusLine .= '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+
+map <leader>bt :MgrToggle<CR>
+map <leader>bb :MgrOpen<CR>
+map <leader>bp :MgrPopUp<CR>
+
 
 "Give the :BD command(s) to keep window layout when deleting buffers
 NeoBundle 'bufkill.vim'
@@ -305,7 +339,7 @@ set formatoptions+=n " recognized numbered lists
 set scrolloff=3
 " show matching brackets
 set showmatch
-set shortmess="filxtTI"
+set shortmess="atI"
 set cursorline " highlight current line
 set ruler " always show cursor
 "set colorcolumn=+1 " colorcolumn textwidth+1
@@ -326,6 +360,8 @@ set iskeyword+=-
 "if has('win32') || has('win64')
     "set shellslash
 "endif
+" Automatically change CWD to file's directory.
+set autochdir
 """""""""""""""""""""""""""""""""""""""""
 
 "Delete trailing white space
@@ -345,11 +381,22 @@ set wildignore+=*.o,*.obj,.git,*.pyc,*.py~
 
 " Omnicomplete
 "set omnifunc=syntaxcomplete#Complete
-set completeopt=menuone,menu,longest,preview
+"set completefunc
+" jedi#completions
+"autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
+set completeopt=menuone,longest
+
 " Expand to the longest match to save characters
 " Set tab completion to key off of ctrl-space and expand tab characters
 let g:SuperTabLongestEnhanced = 1
-let g:SuperTabNoCompleteAfter = ['^', '\s']
+"let g:SuperTabNoCompleteAfter = ['^', '\s']
+let g:SuperTabNoCompleteAfter = ['^']
 ", ',', '(', ')', '{', '}', '"']
 "let g:SuperTabNoCompleteBefore = [' $']
 let g:SuperTabDefaultCompletionType = "context"
@@ -359,15 +406,6 @@ let g:SuperTabMappingForward = '<c-space>' " default is <tab>
 let g:SuperTabMappingBackward = '<s-c-space>' " default is <s-tab>
 let g:SuperTabMappingTabLiteral = '<Tab>' " default is <c-tab>
 let g:SuperTabRetainCompletionDuration = "session"
-" jedi#completions
-"autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
-
 " automatically open and close the popup menu / preview window
 "au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 "set pumheight=15 " pop-up menu height
@@ -557,8 +595,6 @@ map <silent> <A-h> <C-w><
 map <silent> <A-j> <C-W>-
 map <silent> <A-k> <C-W>+
 map <silent> <A-l> <C-w>>
-noremap <Right> <C-w>>
-noremap <Left> <C-w><
 
 " Horizontal scrolling
 noremap <C-]> zl
@@ -644,7 +680,7 @@ function! GetVisual() range
 endfunction
 
 " save file
-nmap <leader>w :w<CR>
+nmap <leader>w :silent w<CR> :redraw<CR>
 
 " Start the find and replace command across the entire file
 vmap <leader>z <Esc>:%s/<c-r>=GetVisual()<cr>/

@@ -17,7 +17,6 @@ else
   "call vundle#rc()
 endif
 
-
 " let Vundle manage Vundle : required! 
 " Bundle 'gmarik/vundle'
 
@@ -216,14 +215,26 @@ let g:syntastic_enable_balloons=0
 let g:syntastic_auto_loc_list=0 "use the :Errors command to bring up the loc list
 "let g:syntastic_python_pylama_args = '-l pep8,pep257,mccabe,pyflakes,pylint'
 let g:syntastic_check_on_open=1
-"let g:syntastic_python_checkers=['flake8']
-let g:syntastic_python_checkers=['pyflakes']
+let g:syntastic_python_checkers=['flake8']
+"let g:syntastic_python_checkers=['pyflakes']
 "let g:syntastic_python_flake8_args='--ignore=E126,E127,E127,E225'
 let g:syntastic_python_flake8_post_args='--ignore=E126,E127,E128,E203,E221,
                                         \E222,E225,E226,E241,E271,E272'
 let g:syntastic_python_pyflakes_post_args='--ignore=E126,E127,E128,E203,E221,
                                         \E222,E225,E226,E241,E271,E272'
 let g:syntastic_debug=0
+"
+" Syntastic uses the quickfix list (location list?)
+" ]L ]l [L [l moves to next/previous quickfix items
+"
+" ingo-library (util library like L9) required for QuickFixCurrentNumber
+NeoBundle 'vim-scripts/ingo-library.git'
+NeoBundle 'vim-scripts/QuickFixCurrentNumber.git'
+" :Cnr, :Lnr print the number of the current/next item (quickfix/location)
+" :Cgo, :Lgo, g<C-Q> Go to the current/next item (quickfix/location)
+" g[q, g]q Go to [count] first/last error in buffer
+" [l, ]l Go to prev/next location list item in buffer
+" g[l, g]l Go to [count] first/last location list item in buffer
 """""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""
@@ -331,7 +342,7 @@ set undofile
 set undolevels=1500 " max number of changes that can be undone
 set undoreload=10000 " max number of lines to save for undo on a buffer reload
 set linebreak
-set textwidth=80
+set textwidth=79
 "set columns=88
 set formatoptions-=t " unset automatic text wrapping at textwidth
 set formatoptions+=n " recognized numbered lists
@@ -450,6 +461,11 @@ if has('gui_running')
   set guioptions-=T  " no toolbar
   set guioptions-=m  " no menubar
   set guitablabel=%t " only filename in tab label
+  " Threw in 
+  set lines=999 "maximize height
+  if winwidth(0)<80
+    set columns=110 "good default
+  endif
   if has('win32') || has('win64')
     set guifont=Consolas:h10
     set guifontwide=MingLiU:h10
@@ -642,6 +658,14 @@ let mapleader = ","
 let g:mapleader = ","
 
 map <F4> :let @/ = ""<CR>
+
+function! MaxVertical ()
+    set lines=9999
+endfunction
+
+function! MaxHorizontal ()
+    set columns=9999
+endfunction
 
 " Escape special characters in a string for exact matching.
 " This is useful to copying strings from the file to the search tool

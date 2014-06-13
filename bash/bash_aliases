@@ -9,10 +9,18 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+alias lsc='ls --color=always'
+alias lsc1='lsc -1'
+alias lsca='lsc -Ah'
+alias lsless='lsca | less -R'
+alias lsl='lsless'
+alias lsal='lsc -lAhF | less -R'
+
 # some more ls aliases
-alias ll='ls -AlhF'
 alias la='ls -A'
 alias l='ls -CF'
+alias l1='ls -1'
+alias lall='ls -AlhF'
 
 alias py='python'
 
@@ -28,8 +36,10 @@ alias copydir='echo "$PWD" | xclip'
 alias cdclip='cd `xclip -o`'
 alias tcfav='truecrypt --auto-mount=favorites'
 alias umount-tc='truecrypt -d'
+#alias showpath='echo "$PATH" | sed "s/:/\n/g"'
+alias lspath='echo "$PATH" | sed "s/:/\n/g"'
 
 alias cpu-set-performance='setgov performance'
 alias cpu-set-ondemand='setgov ondemand'
 
-alias vless='vim -u /usr/share/vim/vim73/macros/less.vim'
+alias vless='vim -u /usr/share/vim/vim74/macros/less.vim'

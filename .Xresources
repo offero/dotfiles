@@ -6,8 +6,10 @@ Xft*rgba:      rgb
 
 urxvt*depth: 32
 
-XTerm*termName: xterm-color
-URxvt.termName: rxvt-unicode-256color
+!XTerm*termName: xterm-color
+!URxvt.termName: rxvt-unicode-256color
+!URxvt.termName: screen-256color
+!URxvt.termName: rxvt-256color
 
 xterm*loginShell: true
 URxvt.loginShell: true

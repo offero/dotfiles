@@ -9,6 +9,9 @@ if has('win32') || has('win64')
   call neobundle#rc(expand('~/vimfiles/bundle/'))
   "set rtp+=~/vimfiles/bundle/vundle/
   "call vundle#rc('$HOME/vimfiles/bundle/')
+  " Use the following to ensure swap and other temp files work correctly
+  " ensure that C:\TMP and/or C:\TEMP exist also and are writeable
+  set directory+=,$TMP//
 else
   let $VIMHOME="~/.vim"
   set rtp+=~/.vim/bundle/neobundle.vim/
@@ -16,6 +19,10 @@ else
   "set rtp+=~/.vim/bundle/vundle/
   "call vundle#rc()
 endif
+
+" Testing this:
+set fileformat=unix
+set fileformats=unix,dos
 
 " let Vundle manage Vundle : required! 
 " Bundle 'gmarik/vundle'
@@ -27,12 +34,12 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 """""""""""""""""""""""""""""""""""""""""
 " Color schemes
 """""""""""""""""""""""""""""""""""""""""
-NeoBundle 'nanotech/jellybeans.vim.git'
+" NeoBundle 'nanotech/jellybeans.vim.git'
 NeoBundle 'Zenburn'
 NeoBundle 'molokai'
 NeoBundle 'pf_earth.vim'
 NeoBundle 'altercation/vim-colors-solarized.git'
-NeoBundle 'goatslacker/mango.vim.git'
+"NeoBundle 'goatslacker/mango.vim.git'
 NeoBundle 'nielsmadan/harlequin'
 " Defines commands :CP and :CN that change (next, prev) colorschemes
 " Also defines :SCROLLCOLORS to provide a list of colorscheme choices
@@ -45,11 +52,11 @@ NeoBundle 'ScrollColors'
 """""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""
-NeoBundle 'kien/rainbow_parentheses.vim'
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+"NeoBundle 'kien/rainbow_parentheses.vim'
+"au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBraces
 """""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""
@@ -64,11 +71,11 @@ NeoBundle 'guns/vim-clojure-static'
 
 " IndexedSearch Displays Match M out of N" when searching
 " (smart with large files)
-NeoBundle 'IndexedSearch'
+"NeoBundle 'IndexedSearch'
 
 " sherlock performs completion from current buffer for command line line mode
 " by using ctrl-tab and ctrl-shift-tab
-NeoBundle 'sherlock.vim'
+" NeoBundle 'sherlock.vim'
 
 " Colors color expressions like their actual colors #FF0000
 NeoBundle 'chrisbra/color_highlight.git'
@@ -93,6 +100,10 @@ let g:NERDTreeIgnore = ['\.pyc$', '\~$', '.DS_Store$']
 "let g:NERDTreeWinPos = "right"
 nnoremap <silent> <F2> :NERDTreeToggle<CR>
 nnoremap <silent> <F3> :NERDTreeFocus<CR>
+
+"nnoremap <silent> <leader>ntt :NERDTreeToggle<CR>
+nnoremap <silent> <leader>nt :NERDTreeFocus<CR>
+nnoremap <silent> <leader>nc :NERDTreeClose<CR>
 " Stop underlines from showing up on files in NerdTree
 "autocmd Syntax nerdtree hi Title gui=None
 autocmd FileType nerdtree hi Title gui=None
@@ -126,7 +137,7 @@ NeoBundle 'ervandew/supertab.git'
 "Bundle 'Valloric/YouCompleteMe'
 "https://github.com/kien/ctrlp.vim
 "http://kien.github.io/ctrlp.vim/
-NeoBundle 'Rip-Rip/clang_complete'
+"NeoBundle 'Rip-Rip/clang_complete'
 "Bundle 'vim-scripts/YankRing.vim'
 "Bundle rstacruz/sparkup.git  "Fast HTML coding
 "Bundle Shougo/neocomplcache.vim.git " autocompletion
@@ -143,6 +154,7 @@ NeoBundle 'Yggdroot/indentLine.git'
 "Bundle bling/vim-airline.git
 "Bundle airblade/vim-gitgutter
 "Bundle jimsei/winresizer.git
+NeoBundle 'tpope/vim-rails.git'
 """""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""
@@ -158,7 +170,7 @@ NeoBundle 'Yggdroot/indentLine.git'
 "More up to date pydoc integration
 "Bundle 'git://github.com/fs111/pydoc.vim.git'
 NeoBundle 'jmcantrell/vim-virtualenv.git'
-NeoBundle 'davidhalter/jedi-vim.git'
+"NeoBundle 'davidhalter/jedi-vim.git'
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
 let g:jedi#use_tabs_not_buffers = 0
@@ -205,25 +217,34 @@ NeoBundle 'scrooloose/syntastic.git'
 "let g:syntastic_disabled_filetypes = ['html', 'python', 'py']
 let g:syntastic_disabled_filetypes = ['html']
 " 'Signs' are markers in the left most column indicating problem on a line
-"let g:syntastic_enable_signs = 0
-let g:syntastic_enable_signs=1
+let g:syntastic_enable_signs = 1
+"let g:syntastic_enable_signs=1
 " Error balloons on mouse-over
-let g:syntastic_enable_balloons=0
+let g:syntastic_enable_balloons=1
 "let g:syntastic_enable_highlighting = 0
 " Echoing current line's error
 "let g:syntastic_echo_current_error = 0
-let g:syntastic_auto_loc_list=0 "use the :Errors command to bring up the loc list
+let g:syntastic_auto_loc_list=2 " 0, 1 (auto open & close) or 2 (auto close only)
+"if set to 2, use the :Errors command to bring up the loc list
+let g:syntastic_always_populate_loc_list=1 "default 0
+" if 0, use command :Errors to populate loc list
+" if 0, use command :SyntasticSetLoclist to manually set
 "let g:syntastic_python_pylama_args = '-l pep8,pep257,mccabe,pyflakes,pylint'
 let g:syntastic_check_on_open=1
 let g:syntastic_python_checkers=['flake8']
 "let g:syntastic_python_checkers=['pyflakes']
 "let g:syntastic_python_flake8_args='--ignore=E126,E127,E127,E225'
-let g:syntastic_python_flake8_post_args='--ignore=E126,E127,E128,E203,E221,
-                                        \E222,E225,E226,E241,E271,E272'
-let g:syntastic_python_pyflakes_post_args='--ignore=E126,E127,E128,E203,E221,
-                                        \E222,E225,E226,E241,E271,E272'
+let g:syntastic_python_flake8_post_args='--ignore=E126,E127,E128,E201,E202,E203,
+                                        \E221,E222,E225,E226,E241,E271,E272'
+let g:syntastic_python_pyflakes_post_args='--ignore=E126,E127,E128,E201,E202,E203,
+                                        \E221,E222,E225,E226,E241,E271,E272'
 let g:syntastic_debug=0
-"
+let g:syntastic_echo_current_error=1
+let g:syntastic_loc_list_height=5  " default 10
+
+" TODO: Try the QuickFixCurrentNumber plugin:
+" http://www.vim.org/scripts/script.php?script_id=4449
+
 " Syntastic uses the quickfix list (location list?)
 " ]L ]l [L [l moves to next/previous quickfix items
 "
@@ -267,17 +288,18 @@ let g:TagmaBufMgrStatusLine  = '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 let g:TagmaBufMgrStatusLine .= '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 let g:TagmaBufMgrStatusLine .= '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 
-map <leader>bt :MgrToggle<CR>
-map <leader>bb :MgrOpen<CR>
-map <leader>bp :MgrPopUp<CR>
+map <leader>tbt :MgrToggle<CR>
+map <leader>tbo :MgrOpen<CR>
+map <leader>tbu :MgrPopUp<CR>
 
 
 "Give the :BD command(s) to keep window layout when deleting buffers
 NeoBundle 'bufkill.vim'
 NeoBundle 'majutsushi/tagbar'
-nnoremap <silent> <F8> :TagbarToggle<CR>
 " ##########  The j argument here _v_ is required to focus the cursor
 nnoremap <silent> <F7> :TagbarOpen j<CR>
+nnoremap <silent> <F8> :TagbarToggle<CR>
+nnoremap <silent> <leader>tt :TagbarToggle<CR>
 "let g:tagbar_left=1
 "let g:tagbar_width=30
 "let g:tagbar_autofocus=1
@@ -315,6 +337,7 @@ NeoBundleCheck
 set t_Co=256
 set nu               "line numbers
 syntax enable
+syntax sync minlines=256  " for speed improvement
 set history=500 "lines of history
 set hlsearch
 set incsearch
@@ -351,8 +374,8 @@ set scrolloff=3
 " show matching brackets
 set showmatch
 set shortmess="atI"
-set cursorline " highlight current line
-set ruler " always show cursor
+"set cursorline " highlight current line
+set ruler       " show line/col position
 "set colorcolumn=+1 " colorcolumn textwidth+1
 set colorcolumn=81 " colorcolumn textwidth+1
 "set foldmethod=syntax
@@ -488,6 +511,7 @@ else
   let g:solarized_termcolors=256
   set background=dark
   colors solarized
+  "colors zenburn
   " override Normal foreground and comment colors to something a bit brighter
   hi Normal ctermfg=lightgray guifg=lightgray
   hi Comment ctermfg=darkgrey guifg=darkgrey
@@ -569,6 +593,7 @@ function! AutoHighlightToggle()
 endfunction
 
 map <F5> :call AutoHighlightToggle()<CR>
+map <leader>H :call AutoHighlightToggle()<CR>
 
 " A Vim function I use to easily toggle colorcolumn on and off.
 " If colorcolumn is off and textwidth is set the use colorcolumn=+1.
@@ -590,6 +615,7 @@ function! ColorColumn()
 endfunction
 
 nnoremap <F6> :call ColorColumn()<cr>
+nnoremap <leader>col :call ColorColumn()<cr>
 
 " map ctrl-w + [hjkl] to ctrl-[hjkl] to move around windows
 " minibufexpl maps these too
@@ -658,6 +684,7 @@ let mapleader = ","
 let g:mapleader = ","
 
 map <F4> :let @/ = ""<CR>
+map <leader>h :let @/ = ""<CR>
 
 function! MaxVertical ()
     set lines=9999

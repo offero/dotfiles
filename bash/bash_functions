@@ -48,7 +48,8 @@ function setgov()
 {
     for i in 0 1 2 3
     do
-        cpufreq-selector -c $i -g "$1"
+        #cpufreq-selector -c $i -g "$1"
+        cpufreq-set -c $i -g "$1"
     done
 }
 

@@ -20,7 +20,7 @@ URxvt*scrollBar_right: true
 
 !see: https://github.com/muennich/urxvt-perls
 URxvt.perl-lib: /home/offero/.local/lib/urxvt/perl/
-URxvt.perl-ext-common:  default,matcher,url-select,keyboard-select,clipboard
+URxvt.perl-ext-common:  default,matcher,url-select,keyboard-select,clipboard,font-size
 !,tabbed
 
 !URxvt.keysym.M-Escape: perl:keyboard-select:activate
@@ -30,6 +30,15 @@ URxvt.keysym.M-s: perl:keyboard-select:search
 URxvt.keysym.M-c: perl:clipboard:copy
 URxvt.keysym.M-v: perl:clipboard:paste
 URxvt.keysym.M-V: perl:clipboard:paste_escaped
+
+!https://github.com/majutsushi/urxvt-font-size
+!URxvt.keysym.C-Up:    perl:font-size:increase
+!URxvt.keysym.C-Down:  perl:font-size:decrease
+URxvt.keysym.C-plus:   perl:font-size:increase
+URxvt.keysym.C-equal : perl:font-size:increase
+URxvt.keysym.C-minus : perl:font-size:decrease
+!URxvt.keysym.C-S-Up:   perl:font-size:incglobal
+!URxvt.keysym.C-S-Down: perl:font-size:decglobal
 
 !URxvt.clipboard.autocopy: true
 !URxvt.keysym.M-C-v: perl:clipboard:paste_escaped

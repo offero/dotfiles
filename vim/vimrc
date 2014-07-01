@@ -15,14 +15,13 @@ if has('win32') || has('win64')
 else
   let $VIMHOME="~/.vim"
   set rtp+=~/.vim/bundle/neobundle.vim/
-  call neobundle#rc(expand('~/.vim/bundle/'))
-  "set rtp+=~/.vim/bundle/vundle/
-  "call vundle#rc()
+  "call neobundle#rc(expand('~/.vim/bundle/'))
+  call neobundle#begin(expand('~/.vim/bundle/'))
 endif
 
 " Testing this:
-set fileformat=unix
-set fileformats=unix,dos
+"set fileformat=unix
+"set fileformats=unix,dos
 
 " let Vundle manage Vundle : required! 
 " Bundle 'gmarik/vundle'
@@ -64,8 +63,8 @@ NeoBundle 'ScrollColors'
 """""""""""""""""""""""""""""""""""""""""
 " nRepl for clojure built in
 "Bundle 'tpope/vim-fireplace.git'
-NeoBundle 'tpope/vim-classpath.git'
-NeoBundle 'guns/vim-clojure-static'
+"NeoBundle 'tpope/vim-classpath.git'
+"NeoBundle 'guns/vim-clojure-static'
 "let vimclojure#UseErrorBuffer = 0
 """""""""""""""""""""""""""""""""""""""""
 
@@ -86,15 +85,15 @@ NeoBundle 'chrisbra/color_highlight.git'
 """""""""""""""""""""""""""""""""""""""""
 " Misc language support
 """""""""""""""""""""""""""""""""""""""""
-NeoBundle 'octave.vim'
-NeoBundle 'rodjek/vim-puppet.git'
+"NeoBundle 'octave.vim'
+"NeoBundle 'rodjek/vim-puppet.git'
 """""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""
 " NerdTree
 """""""""""""""""""""""""""""""""""""""""
 NeoBundle 'scrooloose/nerdtree.git'
-let g:NERDTreeIgnore = ['\.pyc$', '\~$', '.DS_Store$']
+let g:NERDTreeIgnore=['\.pyc$', '\~$', '.DS_Store$']
 "Same nerdtree across all tabs
 "Bundle 'jistr/vim-nerdtree-tabs'
 "let g:NERDTreeWinPos = "right"
@@ -122,10 +121,10 @@ NeoBundle 'ihacklog/tabular.git'
 NeoBundle 'kien/ctrlp.vim.git'
 let g:ctrlp_working_path_mode='ra'
 
-NeoBundle 'tpope/vim-fugitive.git'
+"NeoBundle 'tpope/vim-fugitive.git'
 NeoBundle 'The-NERD-Commenter'
 NeoBundle 'L9'
-NeoBundle 'ervandew/supertab.git'
+"NeoBundle 'ervandew/supertab.git'
 
 """""""""""""""""""""""""""""""""""""""""
 " TODO: Test/install these
@@ -160,29 +159,25 @@ NeoBundle 'tpope/vim-rails.git'
 """""""""""""""""""""""""""""""""""""""""
 " Python
 """""""""""""""""""""""""""""""""""""""""
-"updated version of python omnicomplete
 "Bundle 'iynaix/django.vim'
-"Bundle 'Python-2.x-Standard-Library-Reference'
-"Bundle 'Python-3.x-Standard-Library-Reference'
 "Bundle 'pep8--Yusuke'
-"let g:pep8_igore = "E221"
 "Bundle 'git://github.com/jbking/vim-pep8.git'
 "More up to date pydoc integration
 "Bundle 'git://github.com/fs111/pydoc.vim.git'
-NeoBundle 'jmcantrell/vim-virtualenv.git'
+"NeoBundle 'jmcantrell/vim-virtualenv.git'
 "NeoBundle 'davidhalter/jedi-vim.git'
-let g:jedi#popup_on_dot = 0
-let g:jedi#popup_select_first = 0
-let g:jedi#use_tabs_not_buffers = 0
+let g:jedi#popup_on_dot=0
+let g:jedi#popup_select_first=0
+let g:jedi#use_tabs_not_buffers=0
 " if these are set to "" then these are unassigned
-let g:jedi#auto_initialization = 1
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_definitions_command = "<leader>d"
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>r"
-let g:jedi#show_call_signatures = "0"
+let g:jedi#auto_initialization=1
+let g:jedi#goto_assignments_command="<leader>g"
+let g:jedi#goto_definitions_command="<leader>d"
+let g:jedi#documentation_command="K"
+let g:jedi#usages_command="<leader>n"
+let g:jedi#completions_command="<C-Space>"
+let g:jedi#rename_command="<leader>r"
+let g:jedi#show_call_signatures="0"
 " Make the preview window show up on the bottom and not the top so the text
 " does not scroll down.
 "set splitbelow
@@ -202,7 +197,7 @@ let g:jedi#show_call_signatures = "0"
 
 " Recognize .wsgi files as python
 autocmd BufRead,BufNewFile *.wsgi set filetype=python
-au BufNewFile,BufRead *.mako set ft=mako
+autocmd BufRead,BufNewFile *.mako set filetype=mako
 
 " django
 "autocmd FileType html set filetype=html syntax=htmldjango
@@ -226,21 +221,21 @@ let g:syntastic_enable_balloons=1
 "let g:syntastic_echo_current_error = 0
 let g:syntastic_auto_loc_list=2 " 0, 1 (auto open & close) or 2 (auto close only)
 "if set to 2, use the :Errors command to bring up the loc list
-let g:syntastic_always_populate_loc_list=1 "default 0
+let g:syntastic_always_populate_loc_list=1
+" default 0
 " if 0, use command :Errors to populate loc list
 " if 0, use command :SyntasticSetLoclist to manually set
-"let g:syntastic_python_pylama_args = '-l pep8,pep257,mccabe,pyflakes,pylint'
 let g:syntastic_check_on_open=1
 let g:syntastic_python_checkers=['flake8']
-"let g:syntastic_python_checkers=['pyflakes']
-"let g:syntastic_python_flake8_args='--ignore=E126,E127,E127,E225'
 let g:syntastic_python_flake8_post_args='--ignore=E126,E127,E128,E201,E202,E203,
                                         \E221,E222,E225,E226,E241,E271,E272'
 let g:syntastic_python_pyflakes_post_args='--ignore=E126,E127,E128,E201,E202,E203,
                                         \E221,E222,E225,E226,E241,E271,E272'
 let g:syntastic_debug=0
-let g:syntastic_echo_current_error=1
+"let g:syntastic_echo_current_error=1
 let g:syntastic_loc_list_height=5  " default 10
+let g:syntastic_java_javac_classpath="/usr/share/java/*"
+let g:syntastic_java_javac_classpath.=":/home/offero/Downloads/apps/neo4j-community-2.1.1/lib/*"
 
 " TODO: Try the QuickFixCurrentNumber plugin:
 " http://www.vim.org/scripts/script.php?script_id=4449
@@ -283,14 +278,14 @@ NeoBundle 'JessicaKMcIntosh/TagmaBufMgr.git'
 " don't map Ctrl+arrows to move around splits/buffers (default 1)
 let g:TagmaBufMgrMapCArrow = 0
 " map Ctrl+h,j,k,l to move around splits/buffers (default 1)
-let g:TagmaBufMgrMapChjkl = 1
+"let g:TagmaBufMgrMapChjkl = 1
 let g:TagmaBufMgrStatusLine  = '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 let g:TagmaBufMgrStatusLine .= '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 let g:TagmaBufMgrStatusLine .= '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 
-map <leader>tbt :MgrToggle<CR>
-map <leader>tbo :MgrOpen<CR>
-map <leader>tbu :MgrPopUp<CR>
+noremap <leader>tbt :MgrToggle<CR>
+noremap <leader>tbo :MgrOpen<CR>
+noremap <leader>tbu :MgrPopUp<CR>
 
 
 "Give the :BD command(s) to keep window layout when deleting buffers
@@ -322,6 +317,8 @@ NeoBundle 'tpope/vim-surround.git'
 NeoBundle  'repmo.vim'
 " use \ instead of , (leader re-mapped to ,)
 "let repmo_revkey = 'r'
+
+call neobundle#end()
 
 """""""""""""""""""""""""""""""""""""""""
 " Post NeoBundle/Vundle
@@ -506,11 +503,11 @@ if has('gui_running')
   colors harlequin
 else
   " Whether solarized is the terminal theme too...
-  let g:solarized_termtrans = 1
+  let g:solarized_termtrans=1
   " Colors in terminal require 256 scheme
   let g:solarized_termcolors=256
   set background=dark
-  colors solarized
+  colorscheme solarized
   "colors zenburn
   " override Normal foreground and comment colors to something a bit brighter
   hi Normal ctermfg=lightgray guifg=lightgray
@@ -533,12 +530,12 @@ endif
 """""""""""""""""""""""""""""""""""""""""
 if has('statusline')
     set laststatus=2
-    set statusline=
+    set statusline=""
 
     set statusline +=%1*b%n\ %*            "buffer number
     set statusline +=%4*%.30F%* " Print at most 30 chars of the path to file
-    set statusline +=%5*\ %{fugitive#statusline()}%*
-    set statusline +=%3*\ (%{virtualenv#statusline()})%*
+    "set statusline +=%5*\ %{fugitive#statusline()}%*
+    "set statusline +=%3*\ (%{virtualenv#statusline()})%*
     set statusline +=%2*%{SyntasticStatuslineFlag()}%*
     set statusline +=%2*%m%r%*              "modified,readonly flag
     set statusline +=%2*%#warningmsg#%*
@@ -615,59 +612,59 @@ function! ColorColumn()
 endfunction
 
 nnoremap <F6> :call ColorColumn()<cr>
-nnoremap <leader>col :call ColorColumn()<cr>
+nnoremap <leader>cl :call ColorColumn()<cr>
 
 " map ctrl-w + [hjkl] to ctrl-[hjkl] to move around windows
 " minibufexpl maps these too
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
 
 " Fast window resizing with +/- keys (horizontal); / and * keys (vertical)
 if bufwinnr(1)
-  map <kPlus> <C-W>+
-  map <kMinus> <C-W>-
-  map <kDivide> <c-w><
-  map <kMultiply> <c-w>>
+  noremap <kPlus> <C-W>+
+  noremap <kMinus> <C-W>-
+  noremap <kDivide> <c-w><
+  noremap <kMultiply> <c-w>>
 endif
 
 " Maps Alt-[h,j,k,l] to resizing a window split
-map <silent> <A-h> <C-w><
-map <silent> <A-j> <C-W>-
-map <silent> <A-k> <C-W>+
-map <silent> <A-l> <C-w>>
+noremap <silent> <A-h> <C-w><
+noremap <silent> <A-j> <C-W>-
+noremap <silent> <A-k> <C-W>+
+noremap <silent> <A-l> <C-w>>
 
 " Horizontal scrolling
 noremap <C-]> zl
 noremap <C-[> zh
 
 " Maps Alt-[s.v] to horizontal and vertical split respectively
-map <silent> <A-s> :split<CR>
-map <silent> <A-v> :vsplit<CR>
+"map <silent> <A-s> :split<CR>
+"map <silent> <A-v> :vsplit<CR>
 
 " keypad 0 move to first non-whitespace character on line
-map <k0> ^
+noremap <k0> ^
 
 " Tab configuration
-map <leader>tn :tabnew<cr>
-map <leader>te :tabedit
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
+"map <leader>tn :tabnew<cr>
+"map <leader>te :tabedit
+"map <leader>tc :tabclose<cr>
+"map <leader>tm :tabmove
 
 " make j and k act by terminal line when dealing with wrapped text
 nnoremap j gj
 nnoremap k gk
 
 " Horizonal scrolling with Ctrl-N, Ctrl-M
-nmap <C-m> 2zl
-nmap <C-n> 2zh
+nnoremap <C-m> 2zl
+nnoremap <C-n> 2zh
 
 " use ii as an escape
 "imap ii <C-[>
 " map ctrl-j to exit insert mode
 
-inoremap ,, <Esc>
+"inoremap ,, <Esc>
 inoremap JJ <Esc>
 vnoremap JJ <Esc>
 "vnoremap <C-j> <Esc>
@@ -686,13 +683,13 @@ let g:mapleader = ","
 map <F4> :let @/ = ""<CR>
 map <leader>h :let @/ = ""<CR>
 
-function! MaxVertical ()
-    set lines=9999
-endfunction
+"function! MaxVertical ()
+    "set lines=9999
+"endfunction
 
-function! MaxHorizontal ()
-    set columns=9999
-endfunction
+"function! MaxHorizontal ()
+    "set columns=9999
+"endfunction
 
 " Escape special characters in a string for exact matching.
 " This is useful to copying strings from the file to the search tool
@@ -745,7 +742,7 @@ vmap <leader>s "ry:let @/ = @r<CR>
 nnoremap <leader>cd :cd %:p:h<CR>
 
 " map leader+comma to begin the buffer switch command line
-noremap <leader>, :b 
+noremap <leader>, :b
 
 " Right and left arrows switch between next/prev buffers
 "noremap <Right> :bnext<CR><CR>
@@ -767,8 +764,8 @@ inoremap #' '''<cr>'''<Up>
 
 
 " Use Q for formatting the current paragraph (or selection)
-vmap <leader>f gq
-nmap <leader>f gqap
+vnoremap <leader>f gq
+nnoremap <leader>f gqap
 
 " quick switch buffers with leader key
 nnoremap <leader>1 :1b<CR>
@@ -782,12 +779,12 @@ nnoremap <leader>8 :8b<CR>
 nnoremap <leader>9 :9b<CR>
 nnoremap <leader>0 :10b<CR>
 
-" To/from clipboard
-nmap <leader>p "+p
-nmap <leader>y "+y
+"To/from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>y "+y
 
-" fix for powerline issue with certain color schemes clearing the highlighting
-" https://github.com/Lokaltog/vim-powerline/issues/82
+"fix for powerline issue with certain color schemes clearing the highlighting
+"https://github.com/Lokaltog/vim-powerline/issues/82
 "augroup vimrcs
   "au!
   "au bufwritepost ~/.vimrc 

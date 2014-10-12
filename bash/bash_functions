@@ -1,5 +1,9 @@
 # custom bash functions
 
+function gbl() {
+    git for-each-ref --sort=-committerdate --format='%(committerdate) %(authorname) %(refname)' refs/remotes/origin/|grep -e ".$@"|head -n 10;
+}
+
 updir(){
     if [ $# -gt 0 ];then
         path=""

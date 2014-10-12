@@ -157,9 +157,8 @@ if [ -d ~/.bash/bash_completion.d ]; then
     done
 fi
 
+# ctrl-s sucks
+stty -ixon
+
 # vi mode
 set -o vi
-
-#if [ -f ~/.Xresources ]; then
-    #xrdb -merge ~/.Xresources
-#fi

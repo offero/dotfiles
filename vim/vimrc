@@ -1,343 +1,93 @@
-"""""""""""""""""""""""""""""""""""""""""
-" NeoBundle/Vundle Setup
-"""""""""""""""""""""""""""""""""""""""""
-set nocompatible     "be iMproved
-filetype off         "required! (Vundle Only)
-if has('win32') || has('win64')
-  let $VIMHOME = "~/vimfiles"
-  set rtp+=~/vimfiles/bundle/neobundle.vim/
-  call neobundle#rc(expand('~/vimfiles/bundle/'))
-  "set rtp+=~/vimfiles/bundle/vundle/
-  "call vundle#rc('$HOME/vimfiles/bundle/')
-  " Use the following to ensure swap and other temp files work correctly
-  " ensure that C:\TMP and/or C:\TEMP exist also and are writeable
-  set directory+=,$TMP//
-else
-  let $VIMHOME="~/.vim"
-  set rtp+=~/.vim/bundle/neobundle.vim/
-  "call neobundle#rc(expand('~/.vim/bundle/'))
-  call neobundle#begin(expand('~/.vim/bundle/'))
+set nocompatible               " Be iMproved
+if has('vim_starting')
+    set runtimepath+=~/.vim/bundle/neobundle.vim/ " Required
 endif
 
-" Testing this:
-"set fileformat=unix
-"set fileformats=unix,dos
-
-" let Vundle manage Vundle : required! 
-" Bundle 'gmarik/vundle'
+call neobundle#begin(expand('~/.vim/bundle/')) " Required
 
 " Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
-"""""""""""""""""""""""""""""""""""""""""
+NeoBundleFetch 'Shougo/neobundle.vim' " Required
 
-"""""""""""""""""""""""""""""""""""""""""
-" Color schemes
-"""""""""""""""""""""""""""""""""""""""""
-" NeoBundle 'nanotech/jellybeans.vim.git'
-NeoBundle 'Zenburn'
-NeoBundle 'molokai'
-NeoBundle 'pf_earth.vim'
-NeoBundle 'altercation/vim-colors-solarized.git'
-"NeoBundle 'goatslacker/mango.vim.git'
-NeoBundle 'nielsmadan/harlequin'
-" Defines commands :CP and :CN that change (next, prev) colorschemes
-" Also defines :SCROLLCOLORS to provide a list of colorscheme choices
-NeoBundle 'ScrollColors'
-" \p is set in ScrollColors, it interfere's with clojure plugin
-"autocmd FileType clojure unmap \p
-"gvim colorscheme adapter for vim in 256 terminal mode
-"Bundle 'CSApprox'
-"Bundle 'bukzor/csapprox.git'
-"""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""
-"NeoBundle 'kien/rainbow_parentheses.vim'
-"au VimEnter * RainbowParenthesesToggle
-"au Syntax * RainbowParenthesesLoadRound
-"au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBraces
-"""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""
-" Clojure
-"""""""""""""""""""""""""""""""""""""""""
-" nRepl for clojure built in
-"Bundle 'tpope/vim-fireplace.git'
-"NeoBundle 'tpope/vim-classpath.git'
-"NeoBundle 'guns/vim-clojure-static'
-"let vimclojure#UseErrorBuffer = 0
-"""""""""""""""""""""""""""""""""""""""""
-
-" IndexedSearch Displays Match M out of N" when searching
-" (smart with large files)
-"NeoBundle 'IndexedSearch'
-
-" sherlock performs completion from current buffer for command line line mode
-" by using ctrl-tab and ctrl-shift-tab
-" NeoBundle 'sherlock.vim'
-
-" Colors color expressions like their actual colors #FF0000
-NeoBundle 'chrisbra/color_highlight.git'
-
-" scratch buffer with commands :Scratch and Sscratch
-"NeoBundle 'scratch.vim'
-
-"""""""""""""""""""""""""""""""""""""""""
-" Misc language support
-"""""""""""""""""""""""""""""""""""""""""
-"NeoBundle 'octave.vim'
-"NeoBundle 'rodjek/vim-puppet.git'
-"""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""
-" NerdTree
-"""""""""""""""""""""""""""""""""""""""""
-NeoBundle 'scrooloose/nerdtree.git'
-let g:NERDTreeIgnore=['\.pyc$', '\~$', '.DS_Store$']
-"Same nerdtree across all tabs
-"Bundle 'jistr/vim-nerdtree-tabs'
-"let g:NERDTreeWinPos = "right"
-nnoremap <silent> <F2> :NERDTreeToggle<CR>
-nnoremap <silent> <F3> :NERDTreeFocus<CR>
-
-"nnoremap <silent> <leader>ntt :NERDTreeToggle<CR>
-nnoremap <silent> <leader>nt :NERDTreeFocus<CR>
-nnoremap <silent> <leader>nc :NERDTreeClose<CR>
-" Stop underlines from showing up on files in NerdTree
-"autocmd Syntax nerdtree hi Title gui=None
-autocmd FileType nerdtree hi Title gui=None
-" Open NERDTree automatically when vim starts up if no files were specified
-"autocmd vimenter * if !argc() | NERDTree | endif
-set splitright
-"""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""
-" Tabular aligns text
-"""""""""""""""""""""""""""""""""""""""""
-NeoBundle 'ihacklog/tabular.git'
-"""""""""""""""""""""""""""""""""""""""""
-
-"Fuzzy open file helper with ctrl-p
-NeoBundle 'kien/ctrlp.vim.git'
-let g:ctrlp_working_path_mode='ra'
-
-"NeoBundle 'tpope/vim-fugitive.git'
-NeoBundle 'The-NERD-Commenter'
-NeoBundle 'L9'
-"NeoBundle 'ervandew/supertab.git'
-
-"""""""""""""""""""""""""""""""""""""""""
-" TODO: Test/install these
-"""""""""""""""""""""""""""""""""""""""""
-"Bundle 'FuzzyFinder'
-" https://github.com/benmills/vimux
-"tab completion helper; use tab key for completion; context-based completion
-" YouCompleteMe requires 7.3.584
-"Bundle 'Valloric/YouCompleteMe'
-"https://github.com/kien/ctrlp.vim
-"http://kien.github.io/ctrlp.vim/
-"NeoBundle 'Rip-Rip/clang_complete'
-"Bundle 'vim-scripts/YankRing.vim'
-"Bundle rstacruz/sparkup.git  "Fast HTML coding
-"Bundle Shougo/neocomplcache.vim.git " autocompletion
-"Bundle Shougo/neocomplete.vim.git " the successor to neocomplcache
-"Bundle Lokaltog/vim-easymotion.git
-"Bundle kshenoy/vim-signature.git
-"Bundle terryma/vim-multiple-cursors.git
-"Bundle mattn/emmet-vim.git " HTML5 and CSS coding
-"Bundle Rykka/colorv.vim.git
-"DirDiff.vim
-"Bundle othree/html5.vim.git
+NeoBundle 'neo4j-contrib/cypher-vim-syntax'
+NeoBundle 'Shougo/vimproc.vim', {
+        \ 'build' : {
+        \     'windows' : 'tools\\update-dll-mingw',
+        \     'cygwin' : 'make -f make_cygwin.mak',
+        \     'mac' : 'make -f make_mac.mak',
+        \     'unix' : 'make -f make_unix.mak',
+        \    },
+        \ }
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimfiler.vim'  " requries unite
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'godlygeek/tabular.git'
+NeoBundle 'tpope/vim-commentary'
+NeoBundle 'tpope/vim-git.git'
+NeoBundle 'tpope/vim-fugitive.git'
+" NeoBundle 'tomtom/tcomment_vim.git'
+" NeoBundle 'The-NERD-Commenter' NeoBundle 'L9'
 NeoBundle 'Yggdroot/indentLine.git'
-"Bundle SirVer/ultisnips.git
-"Bundle bling/vim-airline.git
-"Bundle airblade/vim-gitgutter
-"Bundle jimsei/winresizer.git
-NeoBundle 'tpope/vim-rails.git'
-"""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""
-" Python
-"""""""""""""""""""""""""""""""""""""""""
-"Bundle 'iynaix/django.vim'
-"Bundle 'pep8--Yusuke'
-"Bundle 'git://github.com/jbking/vim-pep8.git'
-"More up to date pydoc integration
-"Bundle 'git://github.com/fs111/pydoc.vim.git'
-"NeoBundle 'jmcantrell/vim-virtualenv.git'
-"NeoBundle 'davidhalter/jedi-vim.git'
-let g:jedi#popup_on_dot=0
-let g:jedi#popup_select_first=0
-let g:jedi#use_tabs_not_buffers=0
-" if these are set to "" then these are unassigned
-let g:jedi#auto_initialization=1
-let g:jedi#goto_assignments_command="<leader>g"
-let g:jedi#goto_definitions_command="<leader>d"
-let g:jedi#documentation_command="K"
-let g:jedi#usages_command="<leader>n"
-let g:jedi#completions_command="<C-Space>"
-let g:jedi#rename_command="<leader>r"
-let g:jedi#show_call_signatures="0"
-" Make the preview window show up on the bottom and not the top so the text
-" does not scroll down.
-"set splitbelow
-" To disable preview window:
-"autocmd FileType python setlocal completeopt-=preview
-
-" highlighting indentation
-"NeoBundle 'nathanaelkane/vim-indent-guides.git'
-"let g:indent_guides_start_level=2
-"let g:indent_guides_guide_size=1
-"let g:indent_guides_auto_colors = 0
-"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey ctermbg=3
-"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=lightgrey ctermbg=4
-
-" pseudo-select all
-"nnoremap <C-a> GVgg
-
-" Recognize .wsgi files as python
-autocmd BufRead,BufNewFile *.wsgi set filetype=python
-autocmd BufRead,BufNewFile *.mako set filetype=mako
-
-" django
-"autocmd FileType html set filetype=html syntax=htmldjango
-
-"""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""
-"Syntastic performs syntax checking
-"""""""""""""""""""""""""""""""""""""""""
-NeoBundle 'scrooloose/syntastic.git'
-" Syntastic checkers
-"let g:syntastic_disabled_filetypes = ['html', 'python', 'py']
-let g:syntastic_disabled_filetypes = ['html']
-" 'Signs' are markers in the left most column indicating problem on a line
-let g:syntastic_enable_signs = 1
-"let g:syntastic_enable_signs=1
-" Error balloons on mouse-over
-let g:syntastic_enable_balloons=1
-"let g:syntastic_enable_highlighting = 0
-" Echoing current line's error
-"let g:syntastic_echo_current_error = 0
-let g:syntastic_auto_loc_list=2 " 0, 1 (auto open & close) or 2 (auto close only)
-"if set to 2, use the :Errors command to bring up the loc list
-let g:syntastic_always_populate_loc_list=1
-" default 0
-" if 0, use command :Errors to populate loc list
-" if 0, use command :SyntasticSetLoclist to manually set
-let g:syntastic_check_on_open=1
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_python_flake8_post_args='--ignore=E126,E127,E128,E201,E202,E203,
-                                        \E221,E222,E225,E226,E241,E271,E272'
-let g:syntastic_python_pyflakes_post_args='--ignore=E126,E127,E128,E201,E202,E203,
-                                        \E221,E222,E225,E226,E241,E271,E272'
-let g:syntastic_debug=0
-"let g:syntastic_echo_current_error=1
-let g:syntastic_loc_list_height=5  " default 10
-let g:syntastic_java_javac_classpath="/usr/share/java/*"
-let g:syntastic_java_javac_classpath.=":/home/offero/Downloads/apps/neo4j-community-2.1.1/lib/*"
-
-" TODO: Try the QuickFixCurrentNumber plugin:
-" http://www.vim.org/scripts/script.php?script_id=4449
-
-" Syntastic uses the quickfix list (location list?)
-" ]L ]l [L [l moves to next/previous quickfix items
-"
-" ingo-library (util library like L9) required for QuickFixCurrentNumber
-NeoBundle 'vim-scripts/ingo-library.git'
-NeoBundle 'vim-scripts/QuickFixCurrentNumber.git'
-" :Cnr, :Lnr print the number of the current/next item (quickfix/location)
-" :Cgo, :Lgo, g<C-Q> Go to the current/next item (quickfix/location)
-" g[q, g]q Go to [count] first/last error in buffer
-" [l, ]l Go to prev/next location list item in buffer
-" g[l, g]l Go to [count] first/last location list item in buffer
-"""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""
-" Buffers and tags
-"""""""""""""""""""""""""""""""""""""""""
-" MiniBufExplorer
-"NeoBundle 'fholgado/minibufexpl.vim.git'
-"let g:miniBufExplMapWindowNavArrows = 1
-" minibufexpl is really slow with ~ >10 buffers open unless this is set
-"let g:miniBufExplCheckDupeBufs = 0
-"let g:miniBufExplorerMoreThanOne = 2
-"let g:miniBufExplForceSyntaxEnable = 1
-" The text under the buffer windows in the separator line of minibufexpl
-"let g:statusLineText=""
-
-" Go to/open MiniBufExplorer window
-"map <leader>e :MiniBufExplorer<CR>
-"map <leader>b :MiniBufExplorer<CR>
-" Close MiniBufExplorer window
-"map <Leader>c :CMiniBufExplorer<cr>
-" Update MiniBufExplorer window
-"map <Leader>u :UMiniBufExplorer<cr>
-
-NeoBundle 'JessicaKMcIntosh/TagmaBufMgr.git'
-" don't map Ctrl+arrows to move around splits/buffers (default 1)
-let g:TagmaBufMgrMapCArrow = 0
-" map Ctrl+h,j,k,l to move around splits/buffers (default 1)
-"let g:TagmaBufMgrMapChjkl = 1
-let g:TagmaBufMgrStatusLine  = '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-let g:TagmaBufMgrStatusLine .= '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-let g:TagmaBufMgrStatusLine .= '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-
-noremap <leader>tbt :MgrToggle<CR>
-noremap <leader>tbo :MgrOpen<CR>
-noremap <leader>tbu :MgrPopUp<CR>
-
-
+NeoBundle 'terryma/vim-expand-region.git'
 "Give the :BD command(s) to keep window layout when deleting buffers
 NeoBundle 'bufkill.vim'
+NeoBundle 'scrooloose/syntastic.git'
 NeoBundle 'majutsushi/tagbar'
-" ##########  The j argument here _v_ is required to focus the cursor
-nnoremap <silent> <F7> :TagbarOpen j<CR>
-nnoremap <silent> <F8> :TagbarToggle<CR>
-nnoremap <silent> <leader>tt :TagbarToggle<CR>
-"let g:tagbar_left=1
-"let g:tagbar_width=30
-"let g:tagbar_autofocus=1
-"let g:tagbar_expand=1 " expand gvim window by tagbar width
-
-" set ctags search
-" This will look in the current directory for "tags", and work up the tree 
-" towards root until one is found. IOW, you can be anywhere in your source tree 
-" instead of just the root of it.
-set tags=./tags;/
-set tags+=~/.vim/tags/cpp " cpp std lib
-set tags+=~/.vim/tags/libc6
-"""""""""""""""""""""""""""""""""""""""""
-
 " repeat.vim allows other plugins to use the dot repeat command
 NeoBundle 'tpope/vim-repeat.git'
 NeoBundle 'tpope/vim-surround.git'
+NeoBundle 'bling/vim-airline.git'
+NeoBundle 'yssl/QFEnter.git'
+" vim-fontsize: <Leader><Leader>+ will enter "font size" mode
+NeoBundle 'drmikehenry/vim-fontsize'
+NeoBundle 'molokai'
+NeoBundle 'altercation/vim-colors-solarized.git'
+" Defines commands :CP and :CN that change (next, prev) colorschemes
+" Also defines :SCROLLCOLORS to provide a list of colorscheme choices
+NeoBundle 'ScrollColors'
+" Colors color expressions like their actual colors #FF0000
+NeoBundle 'chrisbra/color_highlight.git'
+NeoBundle 'neo4j-contrib/cypher-vim-syntax'
+NeoBundle 'mtth/scratch.vim'
+NeoBundle 'Valloric/YouCompleteMe'
+" tern complete's javascript
+NeoBundle 'marijnh/tern_for_vim'
+NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'mustache/vim-mustache-handlebars'
+" ahayman/vim-nodejs-complete
+" moll/vim-node
+" sidorares/node-vim-debugger
 
-" Repeat numbered motion commands with ; and , keys
-NeoBundle  'repmo.vim'
-" use \ instead of , (leader re-mapped to ,)
-"let repmo_revkey = 'r'
+" sherlock performs completion from current buffer for command line line mode
+" by using ctrl-tab and ctrl-shift-tab
+NeoBundle 'sherlock.vim'
+NeoBundle 'JessicaKMcIntosh/TagmaBufMgr.git'
 
 call neobundle#end()
 
-"""""""""""""""""""""""""""""""""""""""""
-" Post NeoBundle/Vundle
-"""""""""""""""""""""""""""""""""""""""""
-filetype plugin indent on     " required!
-"""""""""""""""""""""""""""""""""""""""""
+" Required:
+filetype plugin indent on
 
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
 NeoBundleCheck
 
 """""""""""""""""""""""""""""""""""""""""
 " Standard VIM options
 """""""""""""""""""""""""""""""""""""""""
-set t_Co=256
+" set t_Co=256
 set nu               "line numbers
 syntax enable
 syntax sync minlines=256  " for speed improvement
+set synmaxcol=255  " speed for long lines
+set cryptmethod=blowfish
 set history=500 "lines of history
+set showcmd
 set hlsearch
 set incsearch
+set nowrapscan  " don't wrap search from bottom to top (and opposite)
 "hi Search ctermbg=darkgreen ctermfg=white guibg=darkgreen guifg=white
 "hi Visual ctermbg=darkgrey guibg=darkgrey
 "hi MatchParen cterm=bold gui=bold guifg=black guibg=darkgrey
@@ -384,187 +134,239 @@ set backspace=indent,eol,start
                   "    case-sensitive otherwise
 set undolevels=1000  " use many muchos levels of undo
 set list
-set listchars=tab:>.,trail:.,extends:#,nbsp:.
+" set listchars=tab:>.,trail:.,extends:#,nbsp:.
+set listchars=tab:\|\ ,trail:.,extends:#,nbsp:.
 " Add the '-' to the list of characters that are considered part of a keyword.
 " IE. Word actions will include hyphenated words.
 set iskeyword+=-
 "if has('win32') || has('win64')
     "set shellslash
 "endif
-" Automatically change CWD to file's directory.
-set autochdir
-"""""""""""""""""""""""""""""""""""""""""
+set autochdir  " Automatically change CWD to file's directory.
 
-"Delete trailing white space
+" Tab on the command line will show a menu to complete buffer and file names
+set wildchar=<Tab> wildmenu wildmode=longest,list,full
+
+set wildignore+=*.o,*.obj,.git,*.pyc,*.py~
+
+"""""""""""""""""""""""""""""""""""""""""
+"
+autocmd BufRead,BufNewFile *.wsgi set filetype=python
+autocmd BufRead,BufNewFile *.tac set filetype=python   " twisted app
+
+" map ctrl-w + [hjkl] to ctrl-[hjkl] to move around windows
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" make j and k act by terminal line when dealing with wrapped text
+map j gj
+map k gk
+
+nnoremap <SPACE> <Nop>
+let mapleader = "\<Space>"
+let g:mapleader = "\<Space>"
+
+nnoremap <leader>lo :silent! botright copen 10<cr>
+nnoremap <leader>qo :silent! lopen 10<cr>
+nnoremap <leader>lc :silent! cclose<cr>
+nnoremap <leader>qc :silent! lclose<cr>
+
+" TagmaBufMgr
+" don't map Ctrl+arrows to move around splits/buffers (default 1)
+let g:TagmaBufMgrMapCArrow = 0
+noremap <leader>tb :MgrToggle<CR>
+
+" YouCompleteMe
+let g:ycm_register_as_syntastic_checker = 1 "default 1
+let g:Show_diagnostics_ui = 1 "default 1
+let g:ycm_enable_diagnostic_signs = 1
+let g:ycm_enable_diagnostic_highlighting = 0
+let g:ycm_always_populate_location_list = 1 "default 0
+let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
+let g:ycm_complete_in_strings = 1 "default 1
+let g:ycm_collect_identifiers_from_tags_files = 0 "default 0
+let g:ycm_path_to_python_interpreter = '' "default ''
+let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
+let g:ycm_server_log_level = 'info' "default info
+"where to search for .ycm_extra_conf.py if not found:
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 1
+"[ 'same-buffer', 'horizontal-split', 'vertical-split', 'new-tab' ]
+let g:ycm_goto_buffer_command = 'same-buffer'
+let g:ycm_filetype_whitelist = { '*': 1 }
+let g:ycm_key_invoke_completion = '<C-Space>'
+nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
+
+set completeopt=menuone,longest
+
+" vim-commenter
+nmap <leader>c gcc
+vmap <leader>c gc
+
+inoremap JJ <Esc>
+vnoremap JJ <Esc>
+
+" nmap <leader>h :let @/ = ""<CR>
+nmap <leader>h :nohl<CR>
+nmap <leader>w :w<CR>
+nmap <leader>qu :q<CR>
+nmap <leader>r :so $MYVIMRC<CR>
+
+" Copy/Paste to system clipboard
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
+" 'terryma/vim-expand-region.git'
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+" Horizonal scrolling with Ctrl-N, Ctrl-M
+nnoremap <C-m> 2zl
+nnoremap <C-n> 2zh
+
+" Window resizing
+noremap <leader><Up> 2<C-W>+
+noremap <leader><Down> 2<C-W>-
+noremap <leader><Left> 2<C-w><
+noremap <leader><Right> 2<C-w>>
+
+" Python multi-line string shortcut
+inoremap #" """<cr>"""<Up>
+inoremap #' '''<cr>'''<Up>
+
+" Airline
+let g:airline_theme='powerlineish'
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_section_z=''
+
+" Unite
+" let g:unite_source_history_yank_enable = 1
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" nnoremap <leader>ut :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
+" nnoremap <leader>uf :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
+" nnoremap <leader>um :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
+" nnoremap <leader>uo :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
+" nnoremap <leader>uy :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
+" nnoremap <leader>ue :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+
+" " Custom mappings for the unite buffer
+" autocmd FileType unite call s:unite_settings()
+" function! s:unite_settings()
+"   " Play nice with supertab
+"   let b:SuperTabDisabled=1
+"   " Enable navigation with control-j and control-k in insert mode
+"   " imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+"   " imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+" endfunction
+
+" Syntastic
+let g:syntastic_disabled_filetypes = ['html']
+let g:syntastic_enable_signs = 1
+let g:syntastic_enable_balloons=1
+let g:syntastic_auto_loc_list=2 " 0, 1 (auto open & close) or 2 (auto close only)
+"if set to 2, use the :Errors command to bring up the loc list
+let g:syntastic_always_populate_loc_list=1
+" if 0, use command :Errors to populate loc list
+" if 0, use command :SyntasticSetLoclist to manually set
+let g:syntastic_check_on_open=1
+let g:syntastic_python_checkers=['flake8']
+let g:syntastic_python_flake8_post_args='--ignore=E126,E127,E128,E201,E202,E203,
+                                        \E221,E222,E225,E226,E241,E251,E271,E272'
+" let g:syntastic_loc_list_height=5  " default 10
+let g:syntastic_java_javac_classpath="/usr/share/java/*"
+let g:syntastic_java_javac_classpath.=":/home/offero/Downloads/apps/neo4j-community-2.1.3/lib/*"
+" Syntastic uses the quickfix list (location list?)
+" ]L ]l [L [l moves to next/previous quickfix items
+
+" VimFiler
+let g:vimfiler_force_overwrite_statusline = 0
+nmap <leader>vf :VimFiler -buffer-name=explorer
+		\ -split -simple -winwidth=35 -toggle -no-quit<CR>
+
+
+" NerdTree
+let g:NERDTreeIgnore=['\.pyc$', '\~$', '.DS_Store$']
+"let g:NERDTreeWinPos = "right"
+" nnoremap <silent> <F2> :NERDTreeToggle<CR>
+" nnoremap <silent> <F3> :NERDTreeFocus<CR>
+nnoremap <silent> <leader>nt :NERDTreeFocus<CR>
+nnoremap <silent> <leader>nc :NERDTreeClose<CR>
+" Stop underlines from showing up on files in NerdTree
+autocmd FileType nerdtree hi Title gui=None
+
+" Tagbar      The j argument here _v_ is required to focus the cursor
+nmap <silent> <leader>to :TagbarOpen j<CR>
+nmap <silent> <leader>tc :TagbarClose<CR>
+nmap <silent> <leader>tt :TagbarToggle<CR>
+
+" Delete trailing white space
 func! DeleteTrailingWS()
   exe "normal mz"
   %s/\s\+$//ge
   exe "normal `z"
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
+autocmd BufWrite *.js :call DeleteTrailingWS()
 
-" Tab on the command line will show a menu to complete buffer and file names
-set wildchar=<Tab> wildmenu wildmode=longest,list,full
-set wildignore+=*.o,*.obj,.git,*.pyc,*.py~
-" Map ctrl+space combination to set off the auto-complete menu
-"imap <C-Space> <C-x><C-o>
-"imap <C-@> <C-Space>
-
-" Omnicomplete
-"set omnifunc=syntaxcomplete#Complete
-"set completefunc
-" jedi#completions
-"autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
-set completeopt=menuone,longest
-
-" Expand to the longest match to save characters
-" Set tab completion to key off of ctrl-space and expand tab characters
-let g:SuperTabLongestEnhanced = 1
-"let g:SuperTabNoCompleteAfter = ['^', '\s']
-let g:SuperTabNoCompleteAfter = ['^']
-", ',', '(', ')', '{', '}', '"']
-"let g:SuperTabNoCompleteBefore = [' $']
-let g:SuperTabDefaultCompletionType = "context"
-" fallback from "context"
-let g:SuperTabContextDefaultCompletionType = "<c-n>"
-let g:SuperTabMappingForward = '<c-space>' " default is <tab>
-let g:SuperTabMappingBackward = '<s-c-space>' " default is <s-tab>
-let g:SuperTabMappingTabLiteral = '<Tab>' " default is <c-tab>
-let g:SuperTabRetainCompletionDuration = "session"
-" automatically open and close the popup menu / preview window
-"au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-"set pumheight=15 " pop-up menu height
-
-" Enter key will simply select the highlighted menu item, just as <C-Y> does
-"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" This only works for windows:
-"nmap <F12> :let &guifont = substitute(&guifont, ':h\(\d\+\)', '\=":h" . (submatch(1) - 1)', '')<CR>
-"nmap <S-F12> :let &guifont = substitute(&guifont, ':h\(\d\+\)', '\=":h" . (submatch(1) + 1)', '')<CR>
-
-"let g:Powerline_symbols="unicode"
-"let g:Powerline_symbols="compatible"
-"let g:Powerline_stl_path_style="short" " or 'relative' or 'full'
-
-"  %{ModWarning()}
-function! ModWarning()
-    if !&modifiable
-        return '[VIEW ONLY]'
-    endif
-    return ''
-endfunction
-
-" set paste/nopaste toggling
-"set pastetoggle=<F2>
-
-hi SpecialKey ctermfg=8 guifg=lightgray
- " The "NonText" highlighting is used for "eol", "extends" and "precedes"
- " "SpecialKey" for "nbsp", "tab" and "trail"."
-
-" omni-completion menu was pink, so this is better...
-highlight Pmenu ctermbg=238 guibg=DimGrey
-highlight PmenuSel ctermbg=7 guibg=DarkBlue guifg=White
-highlight PmenuSbar ctermbg=7 guibg=DarkGray
-highlight PmenuThumb guibg=Black
-
-"""""""""""""""""""""""""""""""""""""""""
-" Color scheme and font configuration
-"""""""""""""""""""""""""""""""""""""""""
-" GVIM specific options
 if has('gui_running')
-  set guioptions-=T  " no toolbar
-  set guioptions-=m  " no menubar
-  set guitablabel=%t " only filename in tab label
-  " Threw in 
-  set lines=999 "maximize height
-  if winwidth(0)<80
-    set columns=110 "good default
-  endif
-  if has('win32') || has('win64')
-    set guifont=Consolas:h10
-    set guifontwide=MingLiU:h10
-  else
+    set guioptions-=T  " no toolbar
+    set guioptions-=m  " no menubar
+    set lines=999 "maximize height
     set guifont=Monaco\ 9
-    "set guifont=Ubuntu\ Mono\ 11
-    "set guifont=Droid\ Sans\ Mono\ 10
-    "set guifont=Anonymous\ Pro\ Minus\ 11
-    "set guifont=Envy\ Code\ R\ 10
-  endif
-  " enable color_highlight plugin automatically
-  " other I like: zenburn, slate2, 3dglasses, solarized, molokai
-  "let g:auto_color=1
-  set background=dark
-  colors harlequin
+    colors Tomorrow-Night-Bright
+    if winwidth(0)<80
+        set columns=110 "good default
+    endif
 else
-  " Whether solarized is the terminal theme too...
-  let g:solarized_termtrans=1
-  " Colors in terminal require 256 scheme
-  let g:solarized_termcolors=256
-  set background=dark
-  colorscheme solarized
-  "colors zenburn
-  " override Normal foreground and comment colors to something a bit brighter
-  hi Normal ctermfg=lightgray guifg=lightgray
-  hi Comment ctermfg=darkgrey guifg=darkgrey
+    if ((&term)=~"rxvt") || ((&term)=~"screen")
+        let g:solarized_contrast="high"
+        colors solarized
+        set background=dark
+        " Override Normal foreground and comment colors to something a bit
+        " brighter. Mean for use with solarized
+        hi Normal ctermfg=lightgray guifg=lightgray
+        hi Comment ctermfg=darkgrey guifg=darkgrey
+    endif
 endif
 
-" for spelling and syntax checking - underline  undercurl
-"highlight SpellBad ctermbg=red guibg=#6d140e guisp=#6d140e
-"highlight ColorColumn ctermbg=darkgrey guibg=gray
-" Remove underline, use grey background on current column
-"highlight CursorLine cterm=NONE ctermbg=235
-" More contrast with zenburn colorscheme
-"let g:zenburn_high_Contrast=1
-"let g:molokai_original=1
-"let g:solarized_visibility = "high"
-"""""""""""""""""""""""""""""""""""""""""
+highlight ColorColumn ctermbg=darkgrey guibg=gray
 
-"""""""""""""""""""""""""""""""""""""""""
-" Status Line
-"""""""""""""""""""""""""""""""""""""""""
-if has('statusline')
-    set laststatus=2
-    set statusline=""
+" formatting the current paragraph (or selection)
+vnoremap <leader>f gq
+nnoremap <leader>f gqap
 
-    set statusline +=%1*b%n\ %*            "buffer number
-    set statusline +=%4*%.30F%* " Print at most 30 chars of the path to file
-    "set statusline +=%5*\ %{fugitive#statusline()}%*
-    "set statusline +=%3*\ (%{virtualenv#statusline()})%*
-    set statusline +=%2*%{SyntasticStatuslineFlag()}%*
-    set statusline +=%2*%m%r%*              "modified,readonly flag
-    set statusline +=%2*%#warningmsg#%*
-    set statusline +=%1*%=%5l%*             "current line
-    set statusline +=%2*/%L%*               "total lines
-    set statusline +=%1*%4v\ %*             "virtual column number
-    set statusline +=%2*0x%04B\ %*          "character under cursor
+" quick switch buffers with leader key
+nnoremap <leader>1 :1b<CR>
+nnoremap <leader>2 :2b<CR>
+nnoremap <leader>3 :3b<CR>
+nnoremap <leader>4 :4b<CR>
+nnoremap <leader>5 :5b<CR>
+nnoremap <leader>6 :6b<CR>
+nnoremap <leader>7 :7b<CR>
+nnoremap <leader>8 :8b<CR>
+nnoremap <leader>9 :9b<CR>
+nnoremap <leader>0 :10b<CR>
 
-    "set statusline +=%5*%{&ff}%*            "file format
-    "set statusline +=%3*%y%*                "file type
-    "set statusline +=%4*\ %<%F%*            "full path
-    "set statusline=%<%f\ " Filename
-    "set statusline=%<%t\ " Tail of filename
-    "set statusline+=\ [%{getcwd()}] " current dir
-    "set statusline+=%2*b%-3.3n%* " buffer number
-    "set statusline+=%w%h%m%r " Options
-    "set statusline+=\ [%{&ff}/%Y] " filetype
-    "set statusline+=%*
-    "set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
-    "set statusline+=\ ""
-    "set statusline+=%=last\ mod:\ ""
-    "set statusline+=%{strftime(\"%m/%d/%y\ %T\",getftime(expand(\"%:p\")))}
-endif
-"""""""""""""""""""""""""""""""""""""""""
-hi User1 guifg=#eea040 guibg=#222222
-hi User2 guifg=#dd3333 guibg=#222222
-hi User3 guifg=#ff66ff guibg=#222222
-hi User4 guifg=#a0ee40 guibg=#222222
-hi User5 guifg=#eeee40 guibg=#222222
+let g:quickfix_is_open = 0
+function! QuickfixToggle()
+    if g:quickfix_is_open
+        cclose
+        let g:quickfix_is_open = 0
+        execute g:quickfix_return_to_window . "wincmd w"
+    else
+        let g:quickfix_return_to_window = winnr()
+        copen
+        let g:quickfix_is_open = 1
+    endif
+endfunction
+nnoremap <leader>qf :call QuickfixToggle()<cr>
 
 " From: http://vim.wikia.com/wiki/VimTip572
 " Highlight all instances of word under cursor, when idle.
@@ -589,213 +391,4 @@ function! AutoHighlightToggle()
   endif
 endfunction
 
-map <F5> :call AutoHighlightToggle()<CR>
 map <leader>H :call AutoHighlightToggle()<CR>
-
-" A Vim function I use to easily toggle colorcolumn on and off.
-" If colorcolumn is off and textwidth is set the use colorcolumn=+1.
-" If colorcolumn is off and textwidth is not set then use colorcolumn=80.
-" If colorcolumn is on then turn it off.
-function! ColorColumn()
-  if empty(&colorcolumn)
-    if empty(&textwidth)
-      echo "colorcolumn=80"
-      setlocal colorcolumn=80
-    else
-      echo "colorcolumn=+1 (" . (&textwidth + 1) . ")"
-      setlocal colorcolumn=+1
-    endif
-  else
-    echo "colorcolumn="
-    setlocal colorcolumn=
-  endif
-endfunction
-
-nnoremap <F6> :call ColorColumn()<cr>
-nnoremap <leader>cl :call ColorColumn()<cr>
-
-" map ctrl-w + [hjkl] to ctrl-[hjkl] to move around windows
-" minibufexpl maps these too
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-
-" Fast window resizing with +/- keys (horizontal); / and * keys (vertical)
-if bufwinnr(1)
-  noremap <kPlus> <C-W>+
-  noremap <kMinus> <C-W>-
-  noremap <kDivide> <c-w><
-  noremap <kMultiply> <c-w>>
-endif
-
-" Maps Alt-[h,j,k,l] to resizing a window split
-noremap <silent> <A-h> <C-w><
-noremap <silent> <A-j> <C-W>-
-noremap <silent> <A-k> <C-W>+
-noremap <silent> <A-l> <C-w>>
-
-" Horizontal scrolling
-noremap <C-]> zl
-noremap <C-[> zh
-
-" Maps Alt-[s.v] to horizontal and vertical split respectively
-"map <silent> <A-s> :split<CR>
-"map <silent> <A-v> :vsplit<CR>
-
-" keypad 0 move to first non-whitespace character on line
-noremap <k0> ^
-
-" Tab configuration
-"map <leader>tn :tabnew<cr>
-"map <leader>te :tabedit
-"map <leader>tc :tabclose<cr>
-"map <leader>tm :tabmove
-
-" make j and k act by terminal line when dealing with wrapped text
-nnoremap j gj
-nnoremap k gk
-
-" Horizonal scrolling with Ctrl-N, Ctrl-M
-nnoremap <C-m> 2zl
-nnoremap <C-n> 2zh
-
-" use ii as an escape
-"imap ii <C-[>
-" map ctrl-j to exit insert mode
-
-"inoremap ,, <Esc>
-inoremap JJ <Esc>
-vnoremap JJ <Esc>
-"vnoremap <C-j> <Esc>
-" map shift-space to exit insert mode
-"inoremap <S-space> <Esc> " I hit this combo after typing symbols (don't use)
-"vnoremap <S-space> <Esc>
-"nnoremap <S-Space> i
-"nnoremap <leader>i i
-"inoremap <leader>i <Esc>
-
-" enable reverse find (f, t) movement key
-nnoremap <Space>, ,
-let mapleader = ","
-let g:mapleader = ","
-
-map <F4> :let @/ = ""<CR>
-map <leader>h :let @/ = ""<CR>
-
-"function! MaxVertical ()
-    "set lines=9999
-"endfunction
-
-"function! MaxHorizontal ()
-    "set columns=9999
-"endfunction
-
-" Escape special characters in a string for exact matching.
-" This is useful to copying strings from the file to the search tool
-" Based on this - http://peterodding.com/code/vim/profile/autoload/xolox/escape.vim
-function! EscapeString (string)
-  let string=a:string
-  " Escape regex characters
-  let string = escape(string, '^$.*\/~[]')
-  " Escape the line endings
-  let string = substitute(string, '\n', '\\n', 'g')
-  return string
-endfunction
-
-" Get the current visual block for search and replaces
-" This function passed the visual block through a string escape function
-" Based on this - http://stackoverflow.com/questions/676600/vim-replace-selected-text/677918#677918
-function! GetVisual() range
-  " Save the current register and clipboard
-  let reg_save = getreg('"')
-  let regtype_save = getregtype('"')
-  let cb_save = &clipboard
-  set clipboard&
-
-  " Put the current visual selection in the " register
-  normal! ""gvy
-  let selection = getreg('"')
-
-  " Put the saved registers and clipboards back
-  call setreg('"', reg_save, regtype_save)
-  let &clipboard = cb_save
-
-  "Escape any special characters in the selection
-  let escaped_selection = EscapeString(selection)
-
-  return escaped_selection
-endfunction
-
-" save file
-nmap <leader>w :silent w<CR> :redraw<CR>
-
-" Start the find and replace command across the entire file
-vmap <leader>z <Esc>:%s/<c-r>=GetVisual()<cr>/
-
-" highlight word under cursor
-nmap <leader>s "ryiw:let @/ = @r<CR>
-" highlight selected visual mode text
-vmap <leader>s "ry:let @/ = @r<CR>
-
-" Set global working directory to current working directory
-nnoremap <leader>cd :cd %:p:h<CR>
-
-" map leader+comma to begin the buffer switch command line
-noremap <leader>, :b
-
-" Right and left arrows switch between next/prev buffers
-"noremap <Right> :bnext<CR><CR>
-"noremap <Left> :bprev<CR><CR>
-
-" insert new line with control and enter
-inoremap <C-CR> <Esc>o
-nnoremap <C-CR> o
-
-nnoremap <leader>q :q<cr>
-
-"inoremap () ()<Left>
-"inoremap <> <><Left>
-"inoremap {} {}<Left>
-"inoremap [] []<Left>
-"inoremap () ()<Left>
-inoremap #" """<cr>"""<Up>
-inoremap #' '''<cr>'''<Up>
-
-
-" Use Q for formatting the current paragraph (or selection)
-vnoremap <leader>f gq
-nnoremap <leader>f gqap
-
-" quick switch buffers with leader key
-nnoremap <leader>1 :1b<CR>
-nnoremap <leader>2 :2b<CR>
-nnoremap <leader>3 :3b<CR>
-nnoremap <leader>4 :4b<CR>
-nnoremap <leader>5 :5b<CR>
-nnoremap <leader>6 :6b<CR>
-nnoremap <leader>7 :7b<CR>
-nnoremap <leader>8 :8b<CR>
-nnoremap <leader>9 :9b<CR>
-nnoremap <leader>0 :10b<CR>
-
-"To/from clipboard
-nnoremap <leader>p "+p
-nnoremap <leader>y "+y
-
-"fix for powerline issue with certain color schemes clearing the highlighting
-"https://github.com/Lokaltog/vim-powerline/issues/82
-"augroup vimrcs
-  "au!
-  "au bufwritepost ~/.vimrc 
-    "\ source ~/.vimrc |
-    "\ if exists('g:Powerline_loaded') |
-      "\ silent! call Pl#Load() |
-    "\ endif 
-"augroup END
-
-" This has to be at the bottom to override other colors (cterm)
-"hi Search ctermbg=darkgreen ctermfg=white guibg=darkgreen guifg=white
-"hi Visual ctermbg=darkgrey guibg=darkgrey
-"hi Visual ctermbg=lightgrey guibg=lightgrey
-"hi MatchParen gui=none guifg=green guibg=grey cterm=none ctermfg=green ctermbg=grey

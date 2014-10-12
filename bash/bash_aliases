@@ -9,6 +9,8 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+alias noderl="env NODE_NO_READLINE=1 rlwrap node"
+
 alias lsc='ls --color=always'
 alias lsc1='lsc -1'
 alias lsca='lsc -Ah'
@@ -38,8 +40,13 @@ alias tcfav='truecrypt --auto-mount=favorites'
 alias umount-tc='truecrypt -d'
 #alias showpath='echo "$PATH" | sed "s/:/\n/g"'
 alias lspath='echo "$PATH" | sed "s/:/\n/g"'
+alias userps='ps -u offero -o pid,%cpu,%mem,start_time,size=-size-,state,cmd'
 
 alias cpu-set-performance='setgov performance'
 alias cpu-set-ondemand='setgov ondemand'
 
 alias vless='vim -u /usr/share/vim/vim74/macros/less.vim'
+
+alias ytdl='youtube-dl --format="bestvideo+bestaudio"'
+
+alias git-br-all='for ref in $(git for-each-ref --sort=-committerdate --format="%(refname)" refs/heads/ refs/remotes ); do git log -n1 $ref --pretty=format:"%Cgreen%cr%Creset %C(yellow)%d%Creset %C(bold blue)<%an>%Creset%n" | cat ; done | awk '"'! a["'$0'"]++'"

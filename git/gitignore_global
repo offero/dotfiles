@@ -1,0 +1,12 @@
+*.pyc
+
+*.swp
+*.swo
+
+tmp/
+scrap.*
+*.egg-info/
+
+.DS_Store
+.DS_Store?
+Thumbs.db

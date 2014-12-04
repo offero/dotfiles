@@ -16,7 +16,8 @@ updir(){
     fi
 }
 
-calc(){ python -c "from math import *; print($*);" ;}
+calc(){ python -c "from __future__ import division; from math import *; print($*);" ; }
+abspath() { python -c "from os.path import abspath; print(abspath('$*'))"; }
 
 function lf
 {
@@ -48,12 +49,14 @@ unpack() {
     fi
 }
 
-function setgov()
-{
-    for i in 0 1 2 3
-    do
-        #cpufreq-selector -c $i -g "$1"
-        cpufreq-set -c $i -g "$1"
-    done
-}
-
+unamestr=`uname`
+if [[ "$unamestr" == 'Linux' ]]; then
+    function setgov()
+    {
+        for i in 0 1 2 3
+        do
+            #cpufreq-selector -c $i -g "$1"
+            cpufreq-set -c $i -g "$1"
+        done
+    }
+fi

@@ -1,6 +1,9 @@
 set nocompatible               " Be iMproved
+
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/ " Required
+    " let &rtp = &rtp . ',' . s:editor_root . '/bundle/vundle/'
+    " set runtimepath+=s:editor_root.'/bundle/neobundle.vim/' " Required
 endif
 
 call neobundle#begin(expand('~/.vim/bundle/')) " Required
@@ -17,68 +20,74 @@ NeoBundle 'Shougo/vimproc.vim', {
         \    },
         \ }
 NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'godlygeek/tabular.git'
+NeoBundle 'junegunn/vim-easy-align'  " :EasyAlign command
 NeoBundle 'tpope/vim-commentary'
-NeoBundle 'tpope/vim-git.git'
+NeoBundle 'tpope/vim-git.git'  " vim git runtime files
 NeoBundle 'tpope/vim-fugitive.git'
 NeoBundle 'Yggdroot/indentLine.git'
 NeoBundle 'terryma/vim-expand-region.git'
-"bufkill: Gives the :BD command(s) to keep window layout when deleting buffers
-NeoBundle 'bufkill.vim'
-NeoBundle 'BufOnly.vim'  " :BufOnly command
+NeoBundle 'bufkill.vim' "bufkill: :BD command(s) to keep window layout when deleting buffers
+NeoBundle 'BufOnly.vim' " :BufOnly command
 NeoBundle 'scrooloose/syntastic.git'
 NeoBundle 'majutsushi/tagbar'
-" repeat.vim allows other plugins to use the dot repeat command
-NeoBundle 'tpope/vim-repeat.git'
+NeoBundle 'tpope/vim-repeat.git' " exposes the repeat '.' command to plugins
 NeoBundle 'tpope/vim-surround.git'
 NeoBundle 'bling/vim-airline.git'
+NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'yssl/QFEnter.git'  " open quickfix item in last focused window
-NeoBundle 'mtth/scratch.vim'
-" tern complete's javascript
 NeoBundle 'marijnh/tern_for_vim'
-NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'pangloss/vim-javascript'
-" NeoBundle 'klen/python-mode'
+NeoBundle 'othree/yajs.vim'
 NeoBundle 'davidhalter/jedi-vim'
-" sherlock performs completion from current buffer for command line line mode
-" by using ctrl-tab and ctrl-shift-tab
-NeoBundle 'sherlock.vim'
-NeoBundle 'bling/vim-bufferline'
+NeoBundle 'sherlock.vim' " command line mode completion C-Tab C-S-Tab
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'mhinz/vim-tmuxify'  " send commands to a tmux pane
+                               " To try: ervandew/screen
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'FelikZ/ctrlp-py-matcher.git'  " Faster ctrl-p matcher
 NeoBundle 'rking/ag.vim'
 NeoBundle 'airblade/vim-rooter.git'  " autochdir to project roots
-" The following 2 work with vim-repeat and vim-surround
-NeoBundle 'guns/vim-sexp.git'
-NeoBundle 'tpope/vim-sexp-mappings-for-regular-people.git'
 
 " Colors
 NeoBundle 'molokai'
 NeoBundle 'altercation/vim-colors-solarized.git'
-" Defines commands :CP and :CN that change (next, prev) colorschemes
-" Also defines :SCROLLCOLORS to provide a list of colorscheme choices
-NeoBundle 'ScrollColors'
-" Colors color expressions like their actual colors #FF0000
-NeoBundle 'chrisbra/color_highlight.git'
+NeoBundle 'gosukiwi/vim-atom-dark'
+NeoBundle 'effkay/argonaut.vim'
+NeoBundle 'vim-scripts/proton'
+NeoBundle 'chriskempson/vim-tomorrow-theme'
+NeoBundle 'morhetz/gruvbox'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'vim-scripts/summerfruit256.vim'
+NeoBundle 'jscappini/material.vim'
+NeoBundle 'mhumeSF/one-dark.vim'
+NeoBundle 'scheakur/vim-scheakur'
+NeoBundle 'ScrollColors' " :CP :CN :SCROLLCOLORS
+NeoBundle 'chrisbra/color_highlight.git' " Show #RRGGBB colors
+NeoBundle 'chrisbra/unicode.vim'
 NeoBundle 'guns/xterm-color-table.vim'
 
 " Language Support
-NeoBundle 'suan/vim-instant-markdown'
-NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'fatih/vim-go'
+NeoBundle 'JuliaLang/julia-vim'
 NeoBundle 'mustache/vim-mustache-handlebars'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'neo4j-contrib/cypher-vim-syntax'
 NeoBundle 'chase/vim-ansible-yaml'
-
-NeoBundle 'xolox/vim-misc'     " required for vim-session
-NeoBundle 'xolox/vim-session'  " better session management
+NeoBundle 'hdima/python-syntax'
+NeoBundle 'rust-lang/rust.vim'
+NeoBundle 'jmcantrell/vim-virtualenv'
+NeoBundle 'elzr/vim-json'
 
 """""""""" To Try """"""""""""""
+" NeoBundle 'suan/vim-instant-markdown'
+"NeoBundle 'unblevable/quick-scope'  " xor NeoBundle
+"https://github.com/wincent/ferret
+" vim-scripts/CmdlineComplete.git
+" tpope/vim-obsession
+" NeoBundle 'xolox/vim-misc'     " required for vim-session
+" NeoBundle 'xolox/vim-session'  " better session management
+" https://github.com/vim-scripts/SyntaxComplete
 " NeoBundle 'xolox/vim-notes'
 " NeoBundle 'kien/rainbow_parentheses.vim'
-" NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 " NeoBundle 'lilydjwg/colorizer' " like color_highlight
 " NeoBundle 'airblade/vim-gitgutter'
 " NeoBundle 'maksimr/vim-jsbeautify'
@@ -95,9 +104,10 @@ NeoBundle 'xolox/vim-session'  " better session management
 " NeoBundle 'rkulla/pydiction.git'
 " NeoBundle '/xolox/vim-easytags'
 """"""" Recently Retired """""""
-" NeoBundle "jmcantrell/vim-virtualenv"
+" The following 2 work with vim-repeat and vim-surround
+" NeoBundle 'guns/vim-sexp.git'
+" NeoBundle 'tpope/vim-sexp-mappings-for-regular-people.git'
 " NeoBundle 'nathanaelkane/vim-indent-guides.git'
-" NeoBundle 'tpope/vim-markdown'
 " NeoBundle 'JessicaKMcIntosh/TagmaBufMgr.git'
 " vim-fontsize: <Leader><Leader>+ will enter "font size" mode
 " NeoBundle 'drmikehenry/vim-fontsize'
@@ -107,6 +117,7 @@ NeoBundle 'xolox/vim-session'  " better session management
 "       \     'mac' : './install.sh',
 "       \    },
 "       \ }
+" NeoBundle 'mtth/scratch.vim'
 """"""""""""""""""""""""""""""""
 
 call neobundle#end()
@@ -121,8 +132,8 @@ NeoBundleCheck
 """""""""""""""""""""""""""""""""""""""""
 " Standard VIM options
 """""""""""""""""""""""""""""""""""""""""
-" set t_Co=256
 set nu               "line numbers
+set relativenumber
 syntax enable
 syntax sync minlines=256  " for speed improvement
 set synmaxcol=255  " speed for long lines
@@ -157,8 +168,7 @@ set undofile
 set undolevels=1500 " max number of changes that can be undone
 set undoreload=10000 " max number of lines to save for undo on a buffer reload
 set linebreak
-set textwidth=79
-"set columns=88
+set textwidth=120
 set formatoptions-=t " unset automatic text wrapping at textwidth
 set formatoptions+=n " recognized numbered lists
 " number of lines to cursor
@@ -168,8 +178,6 @@ set showmatch
 set shortmess="atI"
 "set cursorline " highlight current line
 set ruler       " show line/col position
-"set colorcolumn=+1 " colorcolumn textwidth+1
-set colorcolumn=81 " colorcolumn textwidth+1
 "set foldmethod=syntax
 set foldlevelstart=20
 set foldnestmax=3  " max nested level to fold
@@ -188,6 +196,8 @@ set iskeyword+=-
     "set shellslash
 "endif
 " set autochdir  " Automatically change CWD to file's directory.
+set noautochdir
+set switchbuf=useopen
 
 set undodir=~/.vim/tmp/undo/ " undo files
 set backupdir=~/.vim/tmp/backup/ " backups
@@ -216,6 +226,19 @@ if &term =~ '^screen'
     set ttymouse=xterm2
 endif
 
+" Highlight line too long at the character that is too long
+augroup collumnLimit
+  autocmd!
+  " autocmd BufEnter,WinEnter,FileType scala,java,python
+  " autocmd BufEnter,WinEnter * highlight CollumnLimit ctermbg=DarkRed guibg=DarkRed
+        " \ highlight CollumnLimit ctermbg=DarkGrey guibg=DarkGrey
+  " let climit = 81 " feel free to customize
+  " let pattern = '\%<' . (climit+1) . 'v.\%>' . climit . 'v'
+  " autocmd BufEnter,WinEnter,FileType scala,java
+  " autocmd BufEnter,WinEnter *
+  "       \ let w:m1=matchadd('CollumnLimit', pattern, -1)
+augroup END
+
 " TODO: Play with this:
 " vp doesn't replace paste buffer
 " function! RestoreRegister()
@@ -235,7 +258,6 @@ let g:session_autosave_periodic=5
 
 " vim-tmuxify
 let g:tmuxify_custom_command = 'tmux split-window -d -l 10'
-" let g:tmuxify_map_prefix = '<leader>m'
 
 " a Silent command that calls redraw automatically
 command! -nargs=1 Silent
@@ -244,15 +266,16 @@ command! -nargs=1 Silent
 
 """""""""""""""""""""""""""""""""""""""""
 " The Silver Searcher
+" let g:ag_prg="ag --vimgrep"
 if executable('ag')
   " Use ag over grep
-  let g:aghighlight=1
+  let g:ag_highlight=1
   " set grepprg=ag\ --nogroup\ --nocolor\ --column
   " set grepformat=%f:%l:%c:%m,%f:%l:%m
-  set grepprg=ag\ --vimgrep\ $*
+  set grepprg=ag\ --skip-vcs-ignores\ --vimgrep\ $*
   set grepformat=%f:%l:%c:%m
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command = 'ag %s -l --skip-vcs-ignores --nocolor -g ""'
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
   " let g:ctrlp_cmd = 'CtrlP'
@@ -265,34 +288,45 @@ let g:ctrlp_working_path_mode = 'rw'
 
 " Ignore some folders and files for CtrlP indexing
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.yardoc\|tmp$\|node_modules$\|bower_components$',
+  \ 'dir':  '\.git$\|\.yardoc\|tmp$\|node_modules$\|bower_components$\|build$\|dist$',
   \ 'file': '.\(DS_Store\|so\|dat\|pdf\|epub\|rar\|png\|jpg\|dmg\|bz\|gz\|tar\|xib\|pyc\)$'
   \ }
 
-" let g:rooter_use_lcd = 1
-" let g:rooter_change_directory_for_non_project_files = 1
+let g:rooter_use_lcd = 1
+let g:rooter_change_directory_for_non_project_files = 1
 let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/',
-                        \ '.project', '.project/', '.vimrc']
+                        \ '.project', '.project/', 'setup.py', 'package.json']
+let g:rooter_manual_only = 1
 
-" [line no] + <Enter> instead of [line no] + G
-nnoremap <CR> G
-nnoremap <BS> gg
+" cd to this file's directory
+nmap <leader>cd :cd %:p:h<CR>
+" cd to rooter's root
+nmap <leader>cr :Rooter<CR>
+nmap <leader>cc :setlocal cc=0<cr>
 
 nmap <leader>pb :CtrlPBuffer<CR>
 nmap <leader>pp :CtrlP<CR>
-nmap <leader>pm :CtrlPMixed<CR>
-nmap <leader>pr :CtrlPMRUFiles<CR>
+nmap <leader>pa :CtrlPMixed<CR>
+nmap <leader>pr :CtrlPRoot<CR>
+nmap <leader>pm :CtrlPMRUFiles<CR>
 
-" Navigate the quickfix entries with arrow keys
-nmap <silent> <RIGHT> :cnext<CR>
-nmap <silent> <LEFT> :cprev<CR>
+nmap <leader>tc :tabclose<CR>
+nmap <leader>tn :tabnext<CR>
+nmap <leader>tp :tabprev<CR>
 
-nmap <silent> <UP> :tabprevious<CR>
-nmap <silent> <DOWN> :tabnext<CR>
+nnoremap <leader>l :ls<CR>
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTag
 
 " bind K to grep word under cursor
 " nnoremap K :silent! grep! "\b<C-r><C-w>\b"<CR>:cwindow<CR>:redraw!<CR>
-nnoremap <silent> K :Ag! <cword><CR>
+" nnoremap <silent> K :Ag! <cword><CR>
+
+set omnifunc=syntaxcomplete#Complete
 
 let g:pwanderu="~/Development/Wanderu/"
 let g:pnotes="~/Documents/Notebooks/"
@@ -316,7 +350,7 @@ function! GetVisual()
 endfunction
 
 "grep visual selection
-vnoremap K :<C-U>execute "Ag " . GetVisual()<CR>
+" vnoremap K :<C-U>execute "Ag " . GetVisual()<CR>
 
 "Grep for usages of the current file
 nnoremap <leader>gcf :exec "Ag " . expand("%:t:r")<CR>
@@ -328,6 +362,11 @@ nnoremap <leader>gcf :exec "Ag " . expand("%:t:r")<CR>
 let g:tern_map_keys=1
 let g:tern_show_argument_hints='on_hold'
 
+augroup handlebars
+    autocmd!
+    au BufNewFile,BufRead *.hb set filetype=html.handlebars syntax=mustache
+augroup END
+
 augroup custom_filetype_python
     autocmd!
     autocmd BufRead,BufNewFile *.wsgi set filetype=python
@@ -335,24 +374,26 @@ augroup custom_filetype_python
     " Python multi-line string shortcut
     autocmd FileType python inoremap <buffer> #" """<cr>"""<Up>
     autocmd FileType python inoremap <buffer> #' '''<cr>'''<Up>
+    autocmd FileType python inoremap <buffer> #p import pdb; pdb.set_trace()
+    autocmd FileType python inoremap <buffer> #i import ipdb; ipdb.set_trace()
+    " autocmd FileType python set colorcolumn=120
 augroup END
 
-" Don't hide the markup
-augroup custom_filetype_markdown
+augroup markdown
+    " remove previous autocmds
     autocmd!
-    autocmd BufRead,BufNewFile *.md set filetype=markdown
-    autocmd FileType markdown setlocal conceallevel=0
+    " set every new or read *.md buffer to use the markdown filetype 
+    autocmd BufRead,BufNew *.md setf markdown
     " autocmd FileType markdown setlocal conceallevel=0
 augroup END
 
-nnoremap <leader>cl :setlocal conceallevel=0<cr>
-
-" nnoremap <leader><leader> :b
+let g:vim_json_syntax_conceal=0
+let g:indentLine_noConcealCursor = 1
 
 " vim-instant-markdown
 "let g:instant_markdown_slow = 1
 " Use command :InstantMarkdownPreview
-let g:instant_markdown_autostart = 0
+" let g:instant_markdown_autostart = 0
 
 " map ctrl-w + [hjkl] to ctrl-[hjkl] to move around windows
 " noremap <C-h> <C-w>h
@@ -375,6 +416,13 @@ nnoremap <leader>lo :silent! lopen 10<cr>
 nnoremap <leader>qc :silent! cclose<cr>
 nnoremap <leader>lc :silent! lclose<cr>
 
+" Navigate the quickfix entries
+nnoremap <leader>cn :cnext<CR>
+nnoremap <leader>cp :cprev<CR>
+" Navigate the location entries
+nnoremap <leader>ln :lnext<CR>
+nnoremap <leader>lp :lprev<CR>
+
 " TagmaBufMgr
 " don't map Ctrl+arrows to move around splits/buffers (default 1)
 let g:TagmaBufMgrMapCArrow = 0
@@ -382,37 +430,20 @@ let g:TagmaBufMgrBufName="#####TB#####"
 """
 noremap <leader>tb :MgrToggle<CR>
 
-" YouCompleteMe
-let g:ycm_register_as_syntastic_checker = 1 "default 1
-let g:Show_diagnostics_ui = 1 "default 1
-let g:ycm_enable_diagnostic_signs = 1
-let g:ycm_enable_diagnostic_highlighting = 0
-let g:ycm_always_populate_location_list = 1 "default 0
-let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
-let g:ycm_complete_in_strings = 1 "default 1
-let g:ycm_collect_identifiers_from_tags_files = 0 "default 0
-let g:ycm_path_to_python_interpreter = '' "default ''
-let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
-let g:ycm_server_log_level = 'info' "default info
-"where to search for .ycm_extra_conf.py if not found:
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 1
-"[ 'same-buffer', 'horizontal-split', 'vertical-split', 'new-tab' ]
-let g:ycm_goto_buffer_command = 'same-buffer'
-let g:ycm_filetype_whitelist = { '*': 1 }
-let g:ycm_key_invoke_completion = '<C-Space>'
+nnoremap <leader>s <kDivide>
 
-set completeopt=menuone,longest
-
-" vim-commenter
+" vim-commentary remap
 nmap <leader>cm gcc
 vmap <leader>cm gc
 
 inoremap JJ <Esc>
 vnoremap JJ <Esc>
+snoremap JJ <Esc>
+cnoremap JJ <Esc>
 
 " Highlight current word without jumping
 nmap <leader>hs :let @/ = expand("<cword>")<CR>:set hlsearch<CR>
+" TODO: Above with visual selection
 " Toggle highlight:
 nmap <leader>hl :set hlsearch!<CR>
 " Clear highlight
@@ -423,20 +454,22 @@ nmap <leader>qa :qa<CR>
 nmap <leader>r :so $MYVIMRC<CR>
 
 " Copy/Paste to system clipboard
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
+vmap <leader>y "+y
+vmap <leader>d "+d
+nmap <leader>p "+p
+nmap <leader>P "+P
+vmap <leader>p "+p
+vmap <leader>P "+P
 
 " 'terryma/vim-expand-region.git'
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
-" Horizonal scrolling with Ctrl-N, Ctrl-M
-nnoremap <C-m> 2zl
-nnoremap <C-n> 2zh
+" Horizonal scrolling
+nnoremap <Right> 2zl
+nnoremap <Left> 2zh
+nnoremap <Down> 2<C-e>
+nnoremap <Up> 2<C-y>
 
 " Window resizing
 noremap <leader><Up> 2<C-W>+
@@ -445,77 +478,94 @@ noremap <leader><Left> 2<C-w><
 noremap <leader><Right> 2<C-w>>
 
 " Airline
-let g:airline_theme='murmur'  " solarized
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#show_buffers = 1
-" let g:airline_left_sep='|'
-" let g:airline_right_sep='|'
-let g:airline_section_a='%#__accent_bold#%{airline#util#wrap(airline#parts#mode(),0)}%#__restore__#%{airline#util#append(airline#parts#paste(),0)}%{airline#util#append("",0)}%{airline#util#append(airline#parts#iminsert(),0)}'
-let g:airline_section_b='B:%{airline#util#wrap(airline#extensions#branch#get_head(),0)}'
-" c modified to show full path, max 50 chars
-let g:airline_section_c='F:%<%.50F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
-let g:airline_section_x='S:%{xolox#session#find_current_session()}'
-let g:airline_section_y=''
-let g:airline_section_z=''
+let g:airline_theme='papercolor'
+let g:airline_mode_map = {
+    \ '__' : '-',
+    \ 'n'  : 'N',
+    \ 'i'  : 'I',
+    \ 'R'  : 'R',
+    \ 'c'  : 'C',
+    \ 'v'  : 'V',
+    \ 'V'  : 'V',
+    \ '' : 'V',
+    \ 's'  : 'S',
+    \ 'S'  : 'S',
+    \ '' : 'S',
+    \ }
 
-nnoremap <leader>> :bnext<CR>
-nnoremap <leader>< :bprevious<CR>
+let g:airline_left_sep=' '
+let g:airline_right_sep=' '
+let g:airline_section_a = '%{airline#util#wrap(airline#parts#mode(),0)}'
+let g:airline_section_a = g:airline_section_a . '%#__restore__#%{airline#util#append(airline#parts#paste(),0)}'
+let g:airline_section_a = g:airline_section_a . '%{airline#util#append("",0)}'
+let g:airline_section_a = g:airline_section_a . '%{airline#util#append(airline#parts#iminsert(),0)}'
+let g:airline_section_b = '%{airline#util#wrap(airline#extensions#branch#get_head(),0)}'
+" c modified to show full path, max 60 chars
+let g:airline_section_c='%<%.60F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
+" let g:airline_section_x='S:%{xolox#session#find_current_session()}'
+" line, character
+let g:airline_section_y='(%l,%v)'
+" buffer number
+let g:airline_section_z='#%n'
 
-" Unite
-" let g:unite_source_history_yank_enable = 1
-" call unite#filters#matcher_default#use(['matcher_fuzzy'])
-" nnoremap <leader>ut :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
-" nnoremap <leader>uf :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
-" nnoremap <leader>um :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
-" nnoremap <leader>uo :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-" nnoremap <leader>uy :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-" nnoremap <leader>ue :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
-
-" " Custom mappings for the unite buffer
-" autocmd FileType unite call s:unite_settings()
-" function! s:unite_settings()
-"   " Play nice with supertab
-"   let b:SuperTabDisabled=1
-"   " Enable navigation with control-j and control-k in insert mode
-"   " imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-"   " imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-" endfunction
+" Completion
+set completeopt=menuone,longest
+inoremap <silent> <buffer> <C-S-N> <c-x><c-o>
+inoremap <silent> <buffer> <C-S-P> <c-x><c-p>
+" Disable the docstring window:
+autocmd FileType python setlocal completeopt-=preview
 
 " Jedi
-" let g:jedi#popup_on_dot = 0
-" autocmd FileType python setlocal completeopt-=preview
+let g:jedi#popup_on_dot = 0
+let g:jedi#show_call_signatures = "2"
+let g:jedi#popup_select_first = 0
+let g:jedi#completions_enabled = 1
+command! JediDoc call jedi#show_documentation()
+command! JediAsgn call jedi#goto_assignments()
+command! JediDef call jedi#goto_definitions()
+command! JediUsage call jedi#usages()
 
 " Syntastic
 let g:syntastic_disabled_filetypes = ['html']
 let g:syntastic_enable_signs = 1
 let g:syntastic_enable_balloons=1
-let g:syntastic_auto_loc_list=2 " 0, 1 (auto open & close) or 2 (auto close only)
+let g:syntastic_enable_highlighting=0
+let g:syntastic_auto_loc_list=0 " 0, 1 (auto open & close) or 2 (auto close only)
 "if set to 2, use the :Errors command to bring up the loc list
 let g:syntastic_always_populate_loc_list=1
 " if 0, use command :Errors to populate loc list
 " if 0, use command :SyntasticSetLoclist to manually set
 let g:syntastic_check_on_open=1
-let g:syntastic_python_checkers=['flake8']
+" let g:syntastic_check_on_wq=0
+" let g:syntastic_python_checkers=['flake8']
+let g:syntastic_mode_map = {
+  \ 'mode': 'active',
+  \ 'active_filetypes': [],
+  \ 'passive_filetypes': ['html', 'xhtml', 'htmldjango', 'css']
+  \ }
 let g:syntastic_python_flake8_post_args='--ignore=E126,E127,E128,E201,E202,E203,
-                                        \E221,E222,E225,E226,E241,E251,E271,E272'
+                                    \E221,E222,E225,E226,E241,E251,E271,E272,E302
+                                    \E501'
+" let g:syntastic_python_pep8_args=
 " let g:syntastic_loc_list_height=5  " default 10
 " let g:syntastic_java_javac_classpath="/usr/share/java/*"
 " let g:syntastic_java_javac_classpath.=":~/Downloads/apps/neo4j-community-2.1.3/lib/*"
-" Syntastic uses the quickfix list (location list?)
-" ]L ]l [L [l moves to next/previous quickfix items
-
-" VimFiler
-let g:vimfiler_force_overwrite_statusline = 0
-nmap <leader>vf :VimFiler -buffer-name=explorer
-                        \ -split -simple -winwidth=35 -toggle -no-quit<CR>
-
+"
+" Other checkers: 'flake8', 'pyflakes', 'pylint'
+let g:syntastic_python_checkers=['py3kwarn', 'flake8', 'pyflakes']
+let g:syntastic_python_python_exec = 'python'
+let g:syntastic_python_pylint_exe = 'python -m pylint'
+let g:syntastic_javascript_checkers = ['jshint', 'eslint', 'node']
 
 " NerdTree
-let g:NERDTreeChDirMode       = 2
-let g:NERDTreeIgnore=['\.pyc$', '\~$', '.DS_Store$']
-"let g:NERDTreeWinPos = "right"
+let g:NERDTreeMinimalUI=1
+let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['\.o$', '\.pyc$', '\~$', '.DS_Store$']
+let g:NERDTreeAutoCenter=1
+
 nnoremap <silent> <leader>nt :NERDTreeFocus<CR>
 nnoremap <silent> <leader>nc :NERDTreeClose<CR>
+nnoremap <silent> <leader>nf :NERDTreeFind<CR>
 " Stop underlines from showing up on files in NerdTree
 augroup au_nerdtree
     autocmd!
@@ -528,73 +578,77 @@ nmap <silent> <leader>tc :TagbarClose<CR>
 nmap <silent> <leader>tt :TagbarToggle<CR>
 
 " Delete trailing white space
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
+" func! DeleteTrailingWS()
+"   exe "normal mz"
+"   %s/\s\+$//ge
+"   exe "normal `z"
+" endfunc
 
-augroup trailws
-    autocmd!
-    autocmd BufWrite *.py :call DeleteTrailingWS()
-    autocmd BufWrite *.js :call DeleteTrailingWS()
-augroup END
+" augroup trailws
+"     autocmd!
+"     autocmd BufWrite *.py :call DeleteTrailingWS()
+"     autocmd BufWrite *.js :call DeleteTrailingWS()
+" augroup END
 
 func! DoSolarized()
     set background=dark
-    let g:solarized_visibility="high"
-    let g:solarized_contrast="high"
+    " let g:solarized_visibility="high"
+    " let g:solarized_contrast="high"
+    let g:solarized_termtrans = 1
+    let g:solarized_termcolors=256
     colors solarized
-    " Override Normal foreground and comment colors to something a bit
-    " brighter. Mean for use with solarized
+    " Override Normal foreground and comment colors to something a bit brighter
     hi Normal ctermfg=lightgray guifg=lightgray
     hi Comment ctermfg=darkgrey guifg=darkgrey
+    hi ColorColumn ctermbg=24 guibg=#005f87
+    " get rid of the red highlight:
+    hi SpecialKey ctermfg=0
 endfunc
+
+" Color schemes I like:
+"  Dark: Tomorrow-Night-Bright, materialtheme, wombat, hybrid, material,
+"        one-dark, monokai
+"  Light: summerfruit256, scheakur
+" Fonts I like:
+"   Sauce\ Code\ Powerline\ Light:h12 / Semibold
+"   Monaco\ 9
+"   Courier\ New:h12
+"   Anonymous\ Pro:h12
 
 if has('gui_running')
     set guioptions-=T  " no toolbar
     set guioptions-=m  " no menubar
+    set guioptions+=c  " console dialogs
     set lines=999 "maximize height
     if has('mac') " macvim only along with 'gui_mac' and 'macunix'
-        " set guifont=Courier\ New:h12
-        set guifont=Sauce\ Code\ Powerline\ Light:h12
-        " Anonymous\ Pro:h12
-        :call DoSolarized()
+        set guifont=Anonymice\ Powerline:h14
     else
         set guifont=Monaco\ 9
     endif
-    " colors Tomorrow-Night-Bright
     if winwidth(0)<80
         set columns=110 "good default
     endif
-else
-    if ((&term)=~"rxvt") || ((&term)=~"screen")
-        let g:solarized_termtrans = 1
-        " let g:solarized_termcolors=256
-        " if has('mac')
-        "     let g:solarized_termcolors=16
-        " endif
-        :call DoSolarized()
-    endif
+    " disable cursor blinking
+    set guicursor+=a:blinkon0
+" else
+    " hi CursorLine cterm=bold
+    " hi Pmenu ctermbg=173
+    " hi PmenuSel ctermbg=179
+    " hi Comment ctermfg=249
+    " hi ColorColumn  ctermfg=NONE ctermbg=25  cterm=NONE
+    " hi LineNr ctermfg=249
+    " hi CursorLineNr ctermfg=234
+    " if ((&term)=~"rxvt") || ((&term)=~"screen")
+    " :call DoSolarized()
+    " endif
 endif
 
-highlight ColorColumn ctermbg=24 guibg=#005f87
+set background=dark
+colors monokai
 
 " formatting the current paragraph (or selection)
 vnoremap <leader>f gq
 nnoremap <leader>f gqap
-
-" quick switch buffers with leader key
-nnoremap <leader>1 :1b<CR>
-nnoremap <leader>2 :2b<CR>
-nnoremap <leader>3 :3b<CR>
-nnoremap <leader>4 :4b<CR>
-nnoremap <leader>5 :5b<CR>
-nnoremap <leader>6 :6b<CR>
-nnoremap <leader>7 :7b<CR>
-nnoremap <leader>8 :8b<CR>
-nnoremap <leader>9 :9b<CR>
-nnoremap <leader>0 :10b<CR>
 
 let g:quickfix_is_open = 0
 function! QuickfixToggle()
@@ -613,7 +667,7 @@ nnoremap <leader>qf :call QuickfixToggle()<cr>
 " From: http://vim.wikia.com/wiki/VimTip572
 " Highlight all instances of word under cursor, when idle.
 " Type z/ to toggle highlighting on/off.
-nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+" nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 function! AutoHighlightToggle()
   let @/ = ''
   if exists('#auto_highlight')

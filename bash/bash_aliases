@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -10,6 +12,11 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 alias noderl="env NODE_NO_READLINE=1 rlwrap node"
+alias ipy="ptipython --vi"
+
+alias agall="ag --skip-vcs-ignores"
+
+alias c='cd'
 
 alias lsc='ls -G'
 alias lsc1='lsc -1'
@@ -24,7 +31,9 @@ alias l='ls -CF'
 alias l1='ls -1'
 alias lall='ls -AlhF'
 
-alias filecount='echo "$(ls -1 $* | wc -l) files"'
+alias lsve='lsvirtualenv -b'
+
+# alias filecount='echo "$(ls -1 $* | wc -l) files"'
 alias user='echo $USERNAME@$HOSTNAME'
 alias up='updir'
 alias cdd='cd ..'
@@ -32,20 +41,29 @@ alias cdd='cd ..'
 alias tcfav='truecrypt --auto-mount=favorites'
 alias umount-tc='truecrypt -d'
 #alias showpath='echo "$PATH" | sed "s/:/\n/g"'
-alias lspath='echo "$PATH" | sed "s/:/\n/g"'
+alias lspath='echo "$PATH" | tr ":" "\n"'
+# TODO: fix userps on OSX
 alias userps='ps -u offero -o pid,%cpu,%mem,start_time,size=-size-,state,cmd'
 
+# TODO: Conditional on OSX
 alias cpu-set-performance='setgov performance'
 alias cpu-set-ondemand='setgov ondemand'
 
+# TODO: Conditional on OSX
+alias vim='mvim -v'
 alias vless='vim -u /usr/share/vim/vim74/macros/less.vim'
 alias ytdl='youtube-dl --format="bestvideo+bestaudio"'
+alias pbj='pbpaste | json | pbcopy'
 
 alias nr='node --harmony $(which repl.history)'
 
-alias git-br-all='for ref in $(git for-each-ref --sort=-committerdate --format="%(refname)" refs/heads/ refs/remotes ); do git log -n1 $ref --pretty=format:"%Cgreen%cr%Creset %C(yellow)%d%Creset %C(bold blue)<%an>%Creset%n" | cat ; done | awk '"'! a["'$0'"]++'"
+alias g='git'
+alias gs='git status'
+alias gd='git diff'
 
-unamestr=`uname`
+# alias git-br-all='for ref in $(git for-each-ref --sort=-committerdate --format="%(refname)" refs/heads/ refs/remotes ); do git log -n1 $ref --pretty=format:"%Cgreen%cr%Creset %C(yellow)%d%Creset %C(bold blue)<%an>%Creset%n" | cat ; done | awk '"'! a["'$0'"]++'"'
+
+unamestr=$(uname)
 if [[ "$unamestr" == 'Darwin' ]]; then
     alias copydir='echo "$PWD" | pbcopy'
     alias cdclip='cd `pbpaste`'
@@ -53,3 +71,14 @@ elif [[ "$unamestr" == 'Linux' ]]; then
     alias copydir='echo "$PWD" | xclip'
     alias cdclip='cd `xclip -o`'
 fi
+
+alias calc2='python -c "from __future__ import division; from math import *; import sys; print(eval(\"\".join(sys.argv[1:])));"'
+alias _='calc'
+alias v='vagrant'
+
+alias cdnotes='cd ~/Documents/Notebooks'
+alias notebook='vim ~/Documents/Notebooks/index.md -c "NERDTreeFind"'
+alias pipunderu='pip list | grep wanderu | cut -d " " -f 1 | xargs pip uninstall -y'
+alias pipin='pip install -i https://pypi.python.org/simple/'
+alias lsve='lsvirtualenv -b'
+alias rmpyc='find . -iname "*.pyc" -exec rm {} \;'

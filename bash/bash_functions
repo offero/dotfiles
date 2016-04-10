@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # custom bash functions
 
 function gbl() {
@@ -16,7 +18,21 @@ updir(){
     fi
 }
 
+tailjsonpp(){
+    tail $* | while read -r line; do echo $line | json_pp; done
+}
+
+tailjson(){
+    tail $* | while read -r line; do echo $line | json; done
+}
+
+# quick cd to wanderu dev folders
+cw(){
+    cd $WANDERU_HOME/$*
+}
+
 calc(){ python -c "from __future__ import division; from math import *; print($*);" ; }
+#calc2(){ python -c 'from __future__ import division; from math import *; import sys; print("".join(sys.argv[1:]));' ; }
 abspath() { python -c "from os.path import abspath; print(abspath('$*'))"; }
 
 function lf
@@ -60,3 +76,34 @@ if [[ "$unamestr" == 'Linux' ]]; then
         done
     }
 fi
+
+colors() {
+    local fgc bgc vals seq0
+
+    printf "Color escapes are %s\n" '\e[${value};...;${value}m'
+    printf "Values 30..37 are \e[33mforeground colors\e[m\n"
+    printf "Values 40..47 are \e[43mbackground colors\e[m\n"
+    printf "Value  1 gives a  \e[1mbold-faced look\e[m\n\n"
+
+    # foreground colors
+    for fgc in {30..37}; do
+        # background colors
+        for bgc in {40..47}; do
+            fgc=${fgc#37} # white
+            bgc=${bgc#40} # black
+
+            vals="${fgc:+$fgc;}${bgc}"
+            vals=${vals%%;}
+
+            seq0="${vals:+\e[${vals}m}"
+            printf "  %-9s" "${seq0:-(default)}"
+            printf " ${seq0}TEXT\e[m"
+            printf " \e[${vals:+${vals+$vals;}}1mBOLD\e[m"
+        done
+        echo; echo
+    done
+}
+
+dict () {
+     curl dict://dict.org/d:"${1}"
+}

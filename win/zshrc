@@ -1,0 +1,203 @@
+# options
+setopt AUTOCD
+# share history across multiple zsh sessions
+setopt SHARE_HISTORY
+# append to history
+setopt APPEND_HISTORY
+# adds commands as they are typed, not at shell exit
+setopt INC_APPEND_HISTORY
+# expire duplicates first
+setopt HIST_EXPIRE_DUPS_FIRST
+# do not store duplications
+setopt HIST_IGNORE_DUPS
+#ignore duplicates when searching
+setopt HIST_FIND_NO_DUPS
+# removes blank lines from history
+setopt HIST_REDUCE_BLANKS
+# suggests cli corrections for programs
+setopt CORRECT
+# suggests cli corrections for arguments
+setopt CORRECT_ALL
+# allow function calls in prompt string
+setopt PROMPT_SUBST
+# ctrl-d is evil
+setopt IGNORE_EOF
+
+# Tab-complete insensitive
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' menu select
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+# Vi mode
+# https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/vi-mode/vi-mode.plugin.zsh
+bindkey -v
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd 'v' edit-command-line
+
+
+bindkey '^r' history-incremental-search-backward
+bindkey '^s' history-incremental-search-forward
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+
+# paths
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+if [ -x /usr/bin/dircolors ]; then
+    # test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+# exts
+autoload -U promptinit && promptinit
+autoload -Uz compinit && compinit
+# autoload bashcompinit && bashcompinit
+autoload -U colors && colors
+# supported colors: red, blue, green, cyan, yellow, magenta, black, & white
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' formats '%b %F{red}%m%u%c%f'
+precmd_vcs_info() {
+    vcs_info
+}
+precmd_functions+=( precmd_vcs_info )
+
+# envs
+export EDITOR='nvim'
+export VISUAL='nvim'
+export DIFFPROG='nvim -d'
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export DOCKER_HOST='tcp://localhost:2375'
+export WINHOME='/mnt/c/Users/cjk'
+export VIRTUAL_ENV_DISABLE_PROMPT=true
+
+# source <(antibody init)
+
+# aliases
+alias cdh='cd "$WINHOME"'
+alias cdw='cd "$WINHOME/Development/Wanderu"'
+alias n=nvim
+alias ga='git add'
+alias gb='git branch'
+alias gcam='git commit -a -m'
+alias gc='git commit'
+alias gco='git checkout'
+alias gd='git diff'
+alias gf='git fetch'
+alias gfo='git fetch origin'
+alias gmom='git merge origin/master'
+alias gp='git push'
+alias gpo='git push origin'
+alias gs='git status'
+alias gst='git status'
+alias git-local-branches="git for-each-ref --format='%(refname:short)' refs/heads/"
+alias rmpyc='find . -iname "*.pyc" -exec rm {} \;'
+alias ta='tmux attach -t'
+alias tn='tmux new -s'
+alias tl='tmux ls'
+alias l='ls -ah'
+alias lt='ls -laht'
+alias l1='ls -1'
+
+# Coding tools
+# source "$HOME/.nvm/nvm.sh"
+
+export PATH="$HOME/.pyenv/bin:$PATH"
+# IDK why but there's a bug in git tab completion when rvm
+# is initialized
+# https://github.com/rvm/rvm/issues/4214
+# source "$HOME/.rvm/scripts/rvm"
+export PATH="$PATH:$HOME/.rvm/bin"
+# eval "$(pyenv init -)"
+# pyenv virtualenvwrapper_lazy
+
+source $HOME/.config/zsh/plugins/sandboxd/sandboxd
+source /usr/share/autojump/autojump.zsh
+
+function virtualenv_info {
+    [ $VIRTUAL_ENV ] && echo '%{%F{blue}%}🐍 '${VIRTUAL_ENV:t}'%{%f%} '
+}
+
+function exit_status_info {
+    local estatus=$?
+    if [[ $estatus -ne 0 ]]; then
+        echo '%{%F{red}%}<'${estatus}'>%{%f%} '
+    fi
+}
+
+eval "$(direnv hook zsh)"
+
+# ssh-agent configuration
+# if [ -z "$(pgrep ssh-agent)" ]; then
+#     rm -rf /tmp/ssh-*
+#     eval $(ssh-agent -s) > /dev/null
+# else
+#     export SSH_AGENT_PID=$(pgrep ssh-agent)
+#     export SSH_AUTH_SOCK=$(find /tmp/ssh-* -name agent.*)
+# fi
+
+function direnv_info {
+    if [ "$DIRENV_DIR" ]; then
+        echo '%{%F{green}%}\uf0ad '${DIRENV_DIR:t}'%{%f%} '
+    fi
+}
+
+KEYTIMEOUT=1
+PROMPT_SYMBOL='λ'
+# PROMPT_SYMBOL='>'
+# PROMPT_SYMBOL=`echo '\uf005'` # star
+# PROMPT_SYMBOL=`echo '\ue285'` # bold >
+# PROMPT_SYMBOL=`echo '\ue266'` # comp chip
+VIM_SYMBOL='+'
+
+function zle-line-init zle-keymap-select {
+    case ${KEYMAP} in
+        (vicmd)      VIM_SYMBOL=":" ;;
+        (main|viins) VIM_SYMBOL="+" ;;
+        (*)          VIM_SYMBOL="+" ;;
+    esac
+    zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+function time_info {
+    echo '%F{cyan}[%D{%a %f %b %T}] '
+}
+
+function branch_info {
+    if [ "${vcs_info_msg_0_}" ]; then
+        echo '%{%F{red}%}\ue725 '${vcs_info_msg_0_}'%{%f%} '
+    fi
+}
+
+# https://www.nerdfonts.com/cheat-sheet
+
+zle_highlight=( default:fg=white )
+
+PROMPT='
+'
+PROMPT+='$(exit_status_info)'
+PROMPT+='%{%F{magenta}%}%~%{%f%}'
+PROMPT+=' '
+PROMPT+='$(virtualenv_info)'
+PROMPT+='$(branch_info)'
+PROMPT+='%{$reset_color%}'
+PROMPT+='
+'
+PROMPT+='${VIM_SYMBOL} ${PROMPT_SYMBOL} '
+
+RPROMPT='$(direnv_info)'
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
